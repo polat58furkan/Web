@@ -8,7 +8,7 @@ fetch('data.json')
                 <div class="product" >
                     <div>
                         <h3><strong>${item.name}</strong></h3>
-                        <img src="${item.image}" alt="${item.name}" style="max-width:200px;">
+                        <img src='${item.image}' alt="${item.name}" >
                     </div>    
                     <p><strong>${item.price} ₺ </strong></p>
                     <p>${item.description}</p>

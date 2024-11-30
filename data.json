@@ -1,11 +1,12 @@
 [
-    {"id": 1, "name": "Ürün 1", "price": 100.0, "description": "Kaliteli bir ürün.","image": "/static/images/product1.jpg"},
-    {"id": 2, "name": "Ürün 2", "price": 100.0, "description": "Çok satan ürün.","image": "/static/images/product2.jpg"},
-    {"id": 3, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "/static/images/a.jpg"},
-    {"id": 4, "name": "Ürün 2", "price": 50.0, "description": "aok satan ürün.","image": "/static/images/b.jpg"},
-    {"id": 5, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "/static/images/c.jpg"},
-    {"id": 6, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "/static/images/d.jpg"},
-    {"id": 7, "name": "Ürün 2", "price": 150.0, "description": "bok satan ürün.","image": "/static/images/d.jpg"},
-    {"id": 8, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "/static/images/d.jpg"},
-    {"id": 9, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "/static/images/d.jpg"}
+    {"id": 1, "name": "Ürün 1", "price": 100.0, "description": "Kaliteli bir ürün.","image": "static/images/product1.jpg"},
+    {"id": 2, "name": "Ürün 2", "price": 100.0, "description": "Çok satan ürün.","image": "static/images/product2.jpg"},
+    {"id": 3, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/a.jpg"},
+    {"id": 4, "name": "Ürün 2", "price": 50.0, "description": "aok satan ürün.","image": "static/images/b.jpg"},
+    {"id": 5, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/c.jpg"},
+    {"id": 6, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/d.jpg"},
+    {"id": 7, "name": "Ürün 2", "price": 150.0, "description": "bok satan ürün.","image": "static/images/d.jpg"},
+    {"id": 8, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/d.jpg"},
+    {"id": 9, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/d.jpg"},
+    {"id": 10, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/d.png"}
 ]
