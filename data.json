@@ -8,5 +8,5 @@
     {"id": 7, "name": "Ürün 2", "price": 150.0, "description": "bok satan ürün.","image": "static/images/d.jpg"},
     {"id": 8, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/d.jpg"},
     {"id": 9, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/d.jpg"},
-    {"id": 10, "name": "Ürün 2", "price": 150.0, "description": "Çok satan ürün.","image": "static/images/d.png"}
+    {"id": 10, "name": "Ürün 2", "price": 5.0, "description": "Çok satan ürün.","image": "static/images/d.png"}
 ]
