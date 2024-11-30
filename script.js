@@ -7,7 +7,7 @@ fetch('data.json')
             product.innerHTML += `
                 <div class="product" >
                     <div>
-                        <h3><strong>${item.name}</strong></h3>
+                        <a href="product.html" onclick="window.history.pushState({}, '', '${item.name}');"><h3><strong>${item.name}</strong></h3></a>
                         <img src='${item.image}' alt="${item.name}" >
                     </div>    
                     <p><strong>${item.price} ₺ </strong></p>
