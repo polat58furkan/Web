@@ -32,36 +32,37 @@ fetch('data.json')
                 `;
             }    
         }
-    });
-/* Modal dışına tıklanınca kapatma işlevi
-document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', event => {
-        if (event.target === modal) {
-            window.location.href = "#"; // Modalı kapatır
+        /* Modal dışına tıklanınca kapatma işlevi
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', event => {
+                if (event.target === modal) {
+                    window.location.href = "#"; // Modalı kapatır
+                }
+            });
+            });
+        */
+        // Modal'ı açma ve kapama işlemleri
+        var modal = document.getElementById("modal1");
+        var closeBtn = document.getElementsByClassName("close-btn")[0];
+
+        // Modal'ı açan öğe
+        var modalLink = document.querySelector("a[href='#modal1']");
+        modalLink.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Modal'ı kapama butonu
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Modal dışında bir yere tıklanırsa da modal kapanacak
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     });
-    });
-*/
-// Modal'ı açma ve kapama işlemleri
-var modal = document.getElementById("modal1");
-var closeBtn = document.getElementsByClassName("close-btn")[0];
 
-// Modal'ı açan öğe
-var modalLink = document.querySelector("a[href='#modal1']");
-modalLink.onclick = function() {
-    modal.style.display = "block";
-}
-
-// Modal'ı kapama butonu
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-// Modal dışında bir yere tıklanırsa da modal kapanacak
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 
 
