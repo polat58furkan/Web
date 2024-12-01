@@ -19,5 +19,6 @@ fetch('data.json')
 function setProductId(idofitem) {
     // Veriyi localStorage'a kaydediyoruz
     localStorage.setItem('idofitem', idofitem);
+    
     }
 //<a href="product.html" onclick="window.history.pushState({}, '', '${item.name}');onclick="setProductId('${item.id}');"><h3><strong>${item.name}</strong></h3></a>

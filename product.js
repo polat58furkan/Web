@@ -1,5 +1,6 @@
 // localStorage'dan veriyi alıyoruz
 let idofitem = parseInt(localStorage.getItem('idofitem'));
+window.history.pushState({},'','ürün');
 // JSON dosyasını oku
 fetch('data.json')
     .then(response => response.json())
