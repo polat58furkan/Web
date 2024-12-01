@@ -1,6 +1,6 @@
 // localStorage'dan veriyi alıyoruz
 let idofitem = parseInt(localStorage.getItem('idofitem'));
-window.history.pushState({},'','ürün');
+//window.history.pushState({},'','ürün');
 // JSON dosyasını oku
 fetch('data.json')
     .then(response => response.json())
@@ -24,7 +24,9 @@ fetch('data.json')
                         <div id="modal1" class="modal">
                             <div class="modal-content">
                                 <span class="close-btn">&times;</span>
-                                <img src='${item.image}' alt="Büyük Görsel">
+                                <div class="ortala">
+                                    <img src='${item.image}' alt="Büyük Görsel">                           
+                                </div>
                             </div>
                         </div>
                     </div>
