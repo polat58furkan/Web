@@ -42,7 +42,8 @@ fetch('data.json')
                 }
             });
             });
-        */
+        
+
         // Modal'ı açma ve kapama işlemleri
         var modal = document.getElementById("modal1");
         var closeBtn = document.getElementsByClassName("close-btn")[0];
@@ -64,6 +65,32 @@ fetch('data.json')
                 modal.style.display = "none";
             }
         }
+        */
+        // Modal'ı açma ve kapama işlemlerini burada tanımlıyoruz
+        const modal = document.getElementById("modal1");
+        const closeBtn = document.querySelector(".close-btn");
+        const modalLink = document.querySelector("a[href='#modal1']");
+
+        if (modalLink) {
+            modalLink.onclick = function (event) {
+                event.preventDefault(); // Varsayılan davranışı engelle
+                modal.style.display = "block";
+            };
+        }
+
+        if (closeBtn) {
+            closeBtn.onclick = function () {
+                modal.style.display = "none";
+            };
+        }
+
+        // Modal dışında bir yere tıklanırsa modal kapanacak
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
     });
 
 
