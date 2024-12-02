@@ -51,6 +51,9 @@ fetch('./data.json')
                 modal.style.display = "none";
             }
         });
+        console.log(modalLink); // null ise öğe bulunamamış
+        console.log(modal);     // null ise DOM'da modal yok
+
         /*
         // Modal'ı açma ve kapama işlemlerini burada tanımlıyoruz
         const modal = document.getElementById("modal1");
