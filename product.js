@@ -32,25 +32,6 @@ fetch('./data.json')
                 `;
             }    
         }
-        // Modal Event Delegation ile açma ve kapama
-        document.body.addEventListener('click', function (event) {
-            const modalTrigger = event.target.closest('.modal-trigger');
-            const modalClose = event.target.closest('.close-btn');
-            const modal = document.getElementById('modal1');
-
-            // Modal açma
-            if (modalTrigger) {
-                event.preventDefault(); // Varsayılan bağlantı davranışını engelle
-                modal.style.display = "block";
-            }
-
-            // Modal kapama
-            if (modalClose || event.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-
-        /*
         // Modal'ı açma ve kapama işlemlerini burada tanımlıyoruz
         const modal = document.getElementById("modal1");
         const closeBtn = document.querySelector(".close-btn");
@@ -78,7 +59,7 @@ fetch('./data.json')
                 console.log("babaaaaa")
             }
         };
-        */
+        
     });
 
 
