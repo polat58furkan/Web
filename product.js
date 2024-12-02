@@ -61,7 +61,6 @@ fetch('data.json')
                 console.log("babaaaaa")
             }
         };
-
     });
 
 
