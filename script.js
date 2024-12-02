@@ -1,5 +1,5 @@
 // JSON dosyasını oku
-fetch('data.json')
+fetch('./data.json')
     .then(response => response.json())
     .then(items => {
         const product = document.getElementById('product');

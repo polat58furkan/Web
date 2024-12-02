@@ -2,7 +2,7 @@
 let idofitem = parseInt(localStorage.getItem('idofitem'));
 //window.history.pushState({},'','ürün');
 // JSON dosyasını oku
-fetch('data.json')
+fetch('./data.json')
     .then(response => response.json())
     .then(items => {
         const product = document.getElementById('product');
