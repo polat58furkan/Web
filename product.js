@@ -10,7 +10,6 @@ fetch('./data.json')
             if(idofitem == parseInt(item.id) )
             {
                 product.innerHTML += `
-    
                     <div class="container">
                         <h3>${item.name}</h3>
                         <div class="city">
@@ -30,7 +29,6 @@ fetch('./data.json')
                             </div>
                         </div>
                     </div>
-
                 `;
             }    
         }
@@ -51,8 +49,6 @@ fetch('./data.json')
                 modal.style.display = "none";
             }
         });
-        console.log(modalLink); // null ise öğe bulunamamış
-        console.log(modal);     // null ise DOM'da modal yok
 
         /*
         // Modal'ı açma ve kapama işlemlerini burada tanımlıyoruz
