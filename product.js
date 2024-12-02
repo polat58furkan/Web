@@ -14,7 +14,7 @@ fetch('data.json')
                     <div class="container">
                         <h3>${item.name}</h3>
                         <div class="city">
-                            <!-- Modal açıldığında büyük görseli göstermek için -->
+                            <!-- Modal açildiğinda büyük görseli göstermek için -->
                             <a href="#modal1"><img src='${item.image}' alt="${item.name}"></a>
                         </div>
                             <p>Fiyat: <strong>${item.price} ₺ </strong></p>
@@ -41,6 +41,7 @@ fetch('data.json')
 
         if (modalLink) {
             modalLink.onclick = function (event) {
+                console.log("gör babaaaaa")
                 event.preventDefault(); // Varsayılan davranışı engelle
                 modal.style.display = "block";
             };
@@ -49,6 +50,7 @@ fetch('data.json')
         if (closeBtn) {
             closeBtn.onclick = function () {
                 modal.style.display = "none";
+                console.log("ne görecem babaaaaa")
             };
         }
 
@@ -56,6 +58,7 @@ fetch('data.json')
         window.onclick = function (event) {
             if (event.target === modal) {
                 modal.style.display = "none";
+                console.log("babaaaaa")
             }
         };
 
