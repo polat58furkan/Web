@@ -31,7 +31,6 @@ fetch('./data.json')
                 `;
             }
         }
-
         // Modal işlemlerini tanımlıyoruz
         const modal = document.getElementById("modal1");
         const closeBtn = document.querySelector(".close-btn");
