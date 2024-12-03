@@ -5,12 +5,26 @@ body {
     background-position: center; /* Resmi ortalar */
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
 }
+/*
 .container {
     max-width: 1700px;
     margin: 20px auto;
     padding: 20px;
-    /* background: rgb(23, 43, 89); */
+    
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: white;
+}
+*/
+.container {
+    max-width: 100%; /* Tam genişlik */
+    width: 100%; /* Genişliği ekran boyutuna ayarla */
+    margin: 0 auto; /* Ortalamayı koru */
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: rgba(0, 0, 0, 0.8); /* Siyah, %80 şeffaf */
@@ -77,44 +91,7 @@ body {
     border: none;
     border-radius: 5px;
 }
-/* Modal Stilleri 
-.modal {
-    display: none; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); 
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transform: scale(2); 
-}
-.modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-.modal:target {
-    display: flex; 
-}
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    color: white;
-    text-decoration: none;
-    z-index: 1001;
-}
-.close-btn:hover {
-    color: red;
-}
-*/
-/* Modal 2 */
-
+/* Modal Stilleri */
 .modal {
     display: none; /* Başlangıçta gizli */
     position: fixed;
@@ -130,7 +107,6 @@ body {
     z-index: 1;
     transform: scale(2); 
 }
-
 .modal-content {
     display: block; /* Açıldığında görünür yapar */
     background-color: #2c272728;
@@ -162,184 +138,31 @@ body {
     font-size: 28px;
     font-weight: bold;
 }
-
 .close-btn:hover,
 .close-btn:focus {
     color: rgb(202, 13, 13);
     text-decoration: none;
     cursor: pointer;
 }
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    .container, .new {
+        padding: 10px;
+    }
 
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('static/images/bg.jpg'); /* Resim dosyasını belirtin */
-    background-size: cover;
-    background-position: center; /* Resmi ortalar */
-    margin: 0;
-    padding: 0;
-}
-.container {
-    max-width: 1700px;
-    margin: 20px auto;
-    padding: 20px;
-    /* background: rgb(23, 43, 89); */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.8); /* Siyah, %80 şeffaf */
-    color: white; /* Yazı rengini beyaz yapar */
-}
-.new {
-    max-width: 1700px;
-    margin: 20px auto;
-    padding: 20px;
-    /* background: rgb(23, 43, 89); */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.8); /* Siyah, %80 şeffaf */
-    color: rgb(23, 43, 89); /* Yazı rengini beyaz yapar */
-    text-align: center; /* Yatay merkezleme */
-}
-.new img {
-    margin: 0;
-    width: 1200px;
-    height: 120px;
-    object-fit: cover;
-    justify-content: center; /* Yatay merkezleme */
-    align-items: center; /* Dikey merkezleme */
-    transform: scale(0.3); /* 1/2 kat büyütme */
-    display: inline-block;
-}
-.h1{
-    text-align: center; /* Yazıyı yatay olarak ortalar */
-}
-.product {
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
-    border-bottom: 1px solid #9ecdf3;
-    padding-bottom: 20px;
-}
-.product img {
-    width: auto;
-    height: auto;
-    margin-right: 50px;
-    margin-left: 50px;
-    border-radius: 8px;
-    object-fit: cover;
-}
-.product h3 {
-    margin-left: 50px;
-    margin-bottom: 10px;
-}
-.product p {
-    margin: 65px 0;
-    margin-left: 50px;
-}
-.main {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-}
-.Anasayfa-btn {
-    background-color: white;
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-}
+    .product {
+        flex-direction: column;
+    }
 
-/* Modal Stilleri 
-.modal {
-    display: none; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); 
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    transform: scale(2); 
-}
-.modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-.modal:target {
-    display: flex; 
-}
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    color: white;
-    text-decoration: none;
-    z-index: 1001;
-}
-.close-btn:hover {
-    color: red;
-}
-*/
-/* Modal 2 */
+    .main, .Anasayfa-btn {
+        width: 100%; /* Butonlar tam genişlikte */
+    }
 
-.modal {
-    display: none; /* Başlangıçta gizli */
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    transform: scale(2); 
-}
+    .new img {
+        transform: none; /* Mobilde resimleri orijinal ölçekte bırak */
+    }
 
-.modal-content {
-    display: block; /* Açıldığında görünür yapar */
-    background-color: #2c272728;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #3a3535;
-    width: 80%;
-    max-width: 500px;    
+    .modal-content {
+        margin: 10% auto; /* Mobilde daha az kenar boşluğu */
+    }
 }
-.ortala {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    place-items: center; /* Hem yatay hem dikey ortala */
-}
-.modal-content img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.modal1 img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: rgb(202, 13, 13);
-    text-decoration: none;
-    cursor: pointer;
-}
-
