@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    height: 90%;
 }
 /*
 .container {
@@ -21,9 +21,11 @@ body {
 }
 */
 .container {
-    max-width: 100%; /* Tam genişlik */
-    width: 100%; /* Genişliği ekran boyutuna ayarla */
+    /*max-width: 100%; /* Tam genişlik */
+    width: 90%; /* Genişliği ekran boyutuna ayarla */
     margin: 0 auto; /* Ortalamayı koru */
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -31,7 +33,8 @@ body {
     color: white; /* Yazı rengini beyaz yapar */
 }
 .new {
-    max-width: 1700px;
+    width: 90%;
+    height: 90%;
     margin: 20px auto;
     padding: 20px;
     /* background: rgb(23, 43, 89); */
@@ -43,8 +46,8 @@ body {
 }
 .new img {
     margin: 0;
-    width: 1200px;
-    height: 120px;
+    width: auto;
+    height: auto;
     object-fit: cover;
     justify-content: center; /* Yatay merkezleme */
     align-items: center; /* Dikey merkezleme */
@@ -56,13 +59,15 @@ body {
 }
 .product {
     display: flex;
+    flex-wrap: wrap; /* Taşan öğeleri alta taşır */
     align-items: center;
+    margin-top: auto;
     margin-bottom: 40px;
     border-bottom: 1px solid #9ecdf3;
     padding-bottom: 20px;
 }
 .product img {
-    width: auto;
+    width: auto; /* Resimler genişlik sınırında */
     height: auto;
     margin-right: 50px;
     margin-left: 50px;
@@ -76,6 +81,7 @@ body {
 .product p {
     margin: 65px 0;
     margin-left: 50px;
+
 }
 .main {
     background-color: #007bff;
@@ -146,12 +152,26 @@ body {
 }
 /* Mobil Uyumluluk */
 @media (max-width: 768px) {
-    .container, .new {
+    .container{ 
         padding: 10px;
+        object-fit: cover;
     }
-
+    .new {
+        padding: 1px;
+    }
+    .new img{
+        width: auto;
+        height: auto;
+        /*object-fit: cover;*/
+        transform: scale(0.3); /* 1/2 kat büyütme */
+        align-items:center ;
+    }
     .product {
         flex-direction: column;
+        text-align: center; /* Tüm metinleri ortala */
+    }
+    .product img {
+        margin-bottom: 20px;
     }
 
     .main, .Anasayfa-btn {

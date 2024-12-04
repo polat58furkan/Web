@@ -9,9 +9,13 @@ fetch('./data.json')
                     <div>
                         <a href="product.html" onclick="setProductId('${item.id}');"><h3><strong>${item.name}</strong></h3></a>
                         <img src='${item.image}' alt="${item.name}" >
-                    </div>    
-                    <p><strong>${item.price} ₺ </strong></p>
-                    <p>${item.description}</p>
+                    </div>  
+                    <div>  
+                        <p><strong>${item.price} ₺ </strong></p>
+                    </div>
+                    <div>
+                        <p>${item.description}</p>
+                    </div>
                 </div>
             `;
         }
