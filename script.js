@@ -19,11 +19,20 @@ fetch('./data.json')
                 </div>
             `;
         }
+        
         function setProductId(idofitem) 
         {
             // Veriyi localStorage'a kaydediyoruz
             localStorage.setItem('idofitem', idofitem);
-            
+            // Verinin doğru kaydedilip kaydedilmediğini kontrol ediyoruz
+            if (localStorage.getItem('idofitem') === idofitem) 
+            {
+                console.log('Veri başarıyla kaydedildi:', idofitem);
+            } 
+            else 
+            {
+                console.error('Veri kaydedilemedi!');
+            }
         }
     });
 
