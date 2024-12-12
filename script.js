@@ -7,7 +7,9 @@ fetch('./data.json')
             product.innerHTML += `
                 <div class="product" >
                     <div>
-                        <a href="product.html" onclick="setProductId('${item.id}');"><h3><strong>${item.name}</strong></h3></a>
+                        <a href="product.html" onclick="setProductId('${item.id}', event);">
+                            <h3><strong>${item.name}</strong></h3>
+                        </a>
                         <img src='${item.image}' alt="${item.name}" >
                     </div>  
                     <div>  
@@ -19,18 +21,20 @@ fetch('./data.json')
                 </div>
             `;
         }
+        function setProductId(idofitem, event) {
+            // Varsayılan davranışı engelle
+            event.preventDefault();
         
-        function setProductId(idofitem) 
-        {
-            // Veriyi localStorage'a kaydediyoruz
+            // Veriyi localStorage'a kaydet
             localStorage.setItem('idofitem', idofitem);
-            // Verinin doğru kaydedilip kaydedilmediğini kontrol ediyoruz
-            if (localStorage.getItem('idofitem') === idofitem) 
-            {
+        
+            // Kaydın başarılı olduğunu kontrol et
+            if (localStorage.getItem('idofitem') === idofitem) {
                 console.log('Veri başarıyla kaydedildi:', idofitem);
-            } 
-            else 
-            {
+        
+                // Daha sonra sayfayı değiştir
+                window.location.href = "product.html";
+            } else {
                 console.error('Veri kaydedilemedi!');
             }
         }
