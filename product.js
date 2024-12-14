@@ -1,5 +1,6 @@
 // localStorage'dan veriyi alıyoruz
 let idofitem = parseInt(localStorage.getItem('idofitem'));
+console.log(idofitem);
 //let idofitem = window.sharedData
 // JSON dosyasını oku
 fetch('./data.json')
