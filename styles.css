@@ -41,6 +41,7 @@ body {
 .container button img{
     width: 100px; 
     height: 50px;
+    display: flex;
 }
 .new {
     width: 90%;
