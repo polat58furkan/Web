@@ -51,19 +51,20 @@ body {
     /* background: rgb(23, 43, 89); */
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.8); /* Siyah, %80 şeffaf */
+    background-color: rgba(0, 0, 0, 0.8); /*  Siyah, %80 şeffaf */
     color: rgb(23, 43, 89); /* Yazı rengini beyaz yapar */
     text-align: center; /* Yatay merkezleme */
 }
-.new img {
+.new img{
     margin: 0;
-    width: auto;
-    height: auto;
-    object-fit: cover;
+    width: 150;
+    height: 200;
+    /* object-fit: cover; */ 
     justify-content: center; /* Yatay merkezleme */
     align-items: center; /* Dikey merkezleme */
     transform: scale(0.3); /* 1/2 kat büyütme */
     display: inline-block;
+    background: none;
 }
 .h1{
     text-align: center; /* Yazıyı yatay olarak ortalar */
