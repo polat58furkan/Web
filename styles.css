@@ -39,8 +39,8 @@ body {
     color: white;
 }
 .container button img{
-    width: 100px; 
-    height: 50px;
+    width: 150px; 
+    height: 75px;
     display: flex;
 }
 .new {
