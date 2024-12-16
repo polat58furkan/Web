@@ -48,11 +48,9 @@ body {
     height: 90%;
     margin: 20px auto;
     padding: 20px;
-    /* background: rgb(23, 43, 89); */
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.8); /*  Siyah, %80 şeffaf */
-    color: rgb(23, 43, 89); /* Yazı rengini beyaz yapar */
+    background-color: rgba(0, 0, 0, 0.8);/*   Siyah, %80 şeffaf */
     text-align: center; /* Yatay merkezleme */
 }
 .new img{
@@ -66,7 +64,7 @@ body {
     display: inline-block;
     background: none;
 }
-.h1{
+.new h1{
     text-align: center; /* Yazıyı yatay olarak ortalar */
 }
 .product {
