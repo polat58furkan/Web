@@ -225,3 +225,37 @@ animation: bounce 1.5s infinite ease-in-out;
 0%, 100% { transform: translateY(0); }
 50% { transform: translateY(-20px); }
 }
+
+/* WelcomeText yazısı */ 
+#WelcomeText {
+    justify-content: center; /* Yatayda ortalama */
+    align-items: center; /* Dikeyde ortalama */
+    display: flex;
+    font-size: 1rem;
+    font-weight: bold;
+    gap: 10px;
+  }
+  
+#WelcomeText span {
+display: inline-block;
+animation: bounce 2s infinite ease-in-out;
+}
+
+/* Farklı harflere farklı animasyon gecikmeleri */
+#WelcomeText span:nth-child(1) { animation-delay: 0s; }
+#WelcomeText span:nth-child(2) { animation-delay: 0.2s; }
+#WelcomeText span:nth-child(3) { animation-delay: 0.4s; }
+#WelcomeText span:nth-child(4) { animation-delay: 0.6s; }
+#WelcomeText span:nth-child(5) { animation-delay: 0.8s; }
+#WelcomeText span:nth-child(6) { animation-delay: 1s; }
+#WelcomeText span:nth-child(7) { animation-delay: 1.2s; }
+#WelcomeText span:nth-child(8) { animation-delay: 1.4s; }
+#WelcomeText span:nth-child(9) { animation-delay: 1.6s; }
+#WelcomeText span:nth-child(10) { animation-delay: 1.8s; }
+#WelcomeText span:nth-child(11) { animation-delay: 2s; }
+
+/* Harf zıplama animasyonu */
+@keyframes bounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-20px); }
+}
