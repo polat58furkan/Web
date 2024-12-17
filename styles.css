@@ -197,3 +197,31 @@ body {
         margin: 10% auto; /* Mobilde daha az kenar boşluğu */
     }
 }
+/* LéGéND */ 
+#legendText {
+    justify-content: center; /* Yatayda ortalama */
+    align-items: center; /* Dikeyde ortalama */
+    display: flex;
+    font-size: 3rem;
+    font-weight: bold;
+    gap: 10px;
+  }
+  
+#legendText span {
+display: inline-block;
+animation: bounce 1.5s infinite ease-in-out;
+}
+
+/* Farklı harflere farklı animasyon gecikmeleri */
+#legendText span:nth-child(1) { animation-delay: 0s; }
+#legendText span:nth-child(2) { animation-delay: 0.2s; }
+#legendText span:nth-child(3) { animation-delay: 0.4s; }
+#legendText span:nth-child(4) { animation-delay: 0.6s; }
+#legendText span:nth-child(5) { animation-delay: 0.8s; }
+#legendText span:nth-child(6) { animation-delay: 1s; }
+
+/* Harf zıplama animasyonu */
+@keyframes bounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-20px); }
+}
