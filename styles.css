@@ -197,7 +197,7 @@ body {
         margin: 10% auto; /* Mobilde daha az kenar boşluğu */
     }
 }
-/* LéGéND */ 
+/* LéGéND yazısı değişiklikleri */ 
 #legendText {
     justify-content: center; /* Yatayda ortalama */
     align-items: center; /* Dikeyde ortalama */
