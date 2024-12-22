@@ -18,7 +18,7 @@ fetch('./data.json')
                         </div>
                         <p>Fiyat: <strong>${item.price} ₺</strong></p>
                         <p>${item.description}</p>
-                        <a href="/" class="Anasayfa-btn">Geri Dön</a>
+                        <a href="/Products.html" class="Anasayfa-btn">Geri Dön</a>
                         <!-- Modal -->
                         <div id="modal1" class="modal">
                             <div class="modal-content">
