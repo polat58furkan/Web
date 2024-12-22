@@ -2,7 +2,6 @@ body {
     font-family: Arial, sans-serif;
     background-image: url('static/images/bg.jpg'); /* Resim dosyasını belirtin */
     background-size: cover;
-    background-position: center; /* Resmi ortalar */
     margin: 0;
     padding: 0;
     width: 100%;
