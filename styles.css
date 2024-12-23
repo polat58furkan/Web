@@ -75,6 +75,7 @@ body {
     margin-bottom: 40px;
     border-bottom: 1px solid #9ecdf3;
     padding-bottom: 20px;
+    /*float: left;*/
 }
 .product img {
     width: auto; /* Resimler genişlik sınırında */
