@@ -237,7 +237,7 @@ animation: bounce 1.5s infinite ease-in-out;
   
 #WelcomeText span {
 display: inline-block;
-animation: bounce 2s infinite ease-in-out;
+animation: bounce_2 2s infinite ease-in-out;
 }
 
 /* Farklı harflere farklı animasyon gecikmeleri */
@@ -254,7 +254,7 @@ animation: bounce 2s infinite ease-in-out;
 #WelcomeText span:nth-child(11) { animation-delay: 2s; }
 
 /* Harf zıplama animasyonu */
-@keyframes bounce {
+@keyframes bounce_2 {
 0%, 100% { transform: translateY(0); }
 50% { transform: translateY(-20px); }
 }
