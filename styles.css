@@ -83,7 +83,7 @@ body {
 }
 #products {
     border-style: none;
-    color: white;
+    color: aqua;
 }
 #product img {
     width: auto; 
@@ -93,6 +93,15 @@ body {
     border-radius: 8px;
     object-fit: cover;
 }
+#product a:link,a:visited{
+    font-weight: bold;
+    color: aqua;
+}
+#product a:hover,a:active{
+    font-weight: bold;
+    color: rgb(3, 0, 204);
+}
+
 .main {
     background-color: #007bff;
     color: white;
