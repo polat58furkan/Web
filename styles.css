@@ -71,28 +71,27 @@ body {
     display: flex;
     flex-wrap: wrap; /* Taşan öğeleri alta taşır */
     align-items: center;
-    margin-top: auto;
+    margin-left: 90px;
+    margin-top: 20px;
     margin-bottom: 40px;
-    border-bottom: 1px solid #9ecdf3;
     padding-bottom: 20px;
-    /*float: left;*/
+    float: left;
+    border-style: solid;
+    border-color: #000000;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);/*   Siyah, %80 şeffaf */
 }
-.product img {
-    width: auto; /* Resimler genişlik sınırında */
+#products {
+    border-style: none;
+    color: white;
+}
+#product img {
+    width: auto; 
     height: auto;
     margin-right: 50px;
     margin-left: 50px;
     border-radius: 8px;
     object-fit: cover;
-}
-.product h3 {
-    margin-left: 50px;
-    margin-bottom: 10px;
-}
-.product p {
-    margin: 65px 0;
-    margin-left: 50px;
-
 }
 .main {
     background-color: #007bff;
