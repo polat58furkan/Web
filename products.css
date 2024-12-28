@@ -1,0 +1,207 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #062d577e;
+    /*background-image: url('static/images/bg.jpg');  Resim dosyasını belirtin */
+    /*background-size: cover;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 90%;
+    */
+}
+.container {
+    /*max-width: 100%; /* Tam genişlik */
+    width: 90%; /* Genişliği ekran boyutuna ayarla */
+    margin: 0 auto; /* Ortalamayı koru */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8); /* Siyah, %80 şeffaf  */
+    color: white; /* Yazı rengini beyaz yapar */
+}
+.container button{
+    margin-left: 10px;
+    box-shadow: 0 2px 5px rgb(221, 17, 17); 
+    background: none;
+    color: white;
+}
+.container button img{
+    width: 150px; 
+    height: 75px;
+    display: flex;
+}
+.showfilter {
+    width: 92.5%;
+    margin: 0 auto;
+    border-style: solid;
+    border-color: red;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8); /* Siyah, %80 şeffaf  */
+
+}
+#search {
+    display: flex;
+    border-style: solid;
+    border-color: rgba(0, 255, 255, 0);
+    justify-content: center;
+    background-color: #000000;
+    text-align: center;
+}
+#searchButtons {
+    background-color: #000000;
+    display: flex;
+    border-color: rgba(0, 255, 255, 0);
+    justify-content: center;
+    border-style: solid;
+    color: white;
+
+}
+.new {
+    width: 90%;
+    height: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8);/*   Siyah, %80 şeffaf */
+    text-align: center; /* Yatay merkezleme */
+}
+
+.new h1 {
+    text-align: center; /* Yazıyı yatay olarak ortalar */
+    text-shadow: rgb(255, 255, 255);
+}
+.product {
+    display: flex;
+    flex-wrap: wrap; /* Taşan öğeleri alta taşır */
+    align-items: center;
+    margin-left: 90px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    float: left;
+    border-style: solid;
+    border-color: #000000;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);/*   Siyah, %80 şeffaf */
+}
+#products {
+    border-style: none;
+    color: aqua;
+}
+#product img {
+    width: auto; 
+    height: auto;
+    margin-right: 50px;
+    margin-left: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+#product a:link,a:visited{
+    font-weight: bold;
+    color: aqua;
+}
+#product a:hover,a:active{
+    font-weight: bold;
+    color: rgb(3, 0, 204);
+}
+
+.main {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+.Anasayfa-btn {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+/* Modal Stilleri */
+.modal {
+    display: none; /* Başlangıçta gizli */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transform: scale(2); 
+}
+.modal-content {
+    display: block; /* Açıldığında görünür yapar */
+    background-color: #2c272728;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #3a3535;
+    width: 80%;
+    max-width: 500px;    
+}
+.ortala {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    place-items: center; /* Hem yatay hem dikey ortala */
+}
+.modal-content img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal1 img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close-btn:hover,
+.close-btn:focus {
+    color: rgb(202, 13, 13);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* LéGéND yazısı değişiklikleri */ 
+#legendText {
+    justify-content: center; /* Yatayda ortalama */
+    align-items: center; /* Dikeyde ortalama */
+    display: flex;
+    font-size: 3rem;
+    font-weight:lighter;
+    gap: 10px;
+  }
+  
+#legendText span {
+display: inline-block;
+animation: bounce 1.5s infinite ease-in-out;
+}
+
+/* Farklı harflere farklı animasyon gecikmeleri */
+#legendText span:nth-child(1) { animation-delay: 0s; }
+#legendText span:nth-child(2) { animation-delay: 0.2s; }
+#legendText span:nth-child(3) { animation-delay: 0.4s; }
+#legendText span:nth-child(4) { animation-delay: 0.6s; }
+#legendText span:nth-child(5) { animation-delay: 0.8s; }
+#legendText span:nth-child(6) { animation-delay: 1s; }
+
+/* Harf zıplama animasyonu */
+@keyframes bounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-20px); }
+}

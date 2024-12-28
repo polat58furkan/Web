@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LéGéND</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/products.css">
 
 </head>
+
 <body>
     <div class="new">
         <h1 id="legendText">
@@ -21,9 +23,20 @@
 
     <div class="container">
         <button onclick="window.location.href='/';">
-            <img src="/static/images/Butonlar/AnasayfaPic.png" alt="Logo" >
+            <img src="/static/images/Butonlar/AnasayfaPic.png" alt="Logo">
         </button>
-        
+    </div>
+
+    <div class="showfilter">
+        <a id="search">
+            <input type="search" placeholder="Ne istersiniz ?" style="width: 500px;">
+            <button type="submit" style="margin-left: 30px;">Ara</button>
+        </a>
+        <a id="searchButtons">
+            <label>
+                <input type="radio" name="gender" value="Kadın"> Kadın
+            </label>
+        </a>
     </div>
     <div id="product"></div>
     <!-- Harici JavaScript dosyasını bağlama -->
@@ -31,4 +44,5 @@
     <script src="color.js"></script>
 
 </body>
+
 </html>
