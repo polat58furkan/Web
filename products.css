@@ -138,8 +138,7 @@ body {
 }
 .product {
     float:left;
-    /*width: 22%;*/
-    width: calc(20%-200px);
+    width: calc(20%-180px);
     margin-top: 10px;
     margin-left: 20px;
     margin-right: 20px;
@@ -148,6 +147,7 @@ body {
     background-color: black;
     border-style: solid;
     border-color: black;
+    border-radius: 8px;
 }
 
 .product:hover {
@@ -162,10 +162,10 @@ body {
 }
 
 #product img {
-    width: auto; 
+    width: auto;
     height: auto;
-    margin-right: 50px;
-    margin-left: 50px;
+    margin-right: auto;
+    margin-left: auto;
     border-radius: 8px;
     object-fit: cover;
 }
