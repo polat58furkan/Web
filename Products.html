@@ -4,45 +4,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LéGéND ürün sayfası - Kadın, Erkek, Çocuk, Teknoloji ve daha fazlası için kategori seçenekleri.">
+    <meta name="keywords" content="LéGéND, ürünler, alışveriş, kadın giyim, teknoloji, sağlık, güzellik, evcil hayvan">
+
+    <script src="script.js"></script>
+    <script src="color.js"></script>
     <title>LéGéND</title>
     <link rel="stylesheet" href="/products.css">
 
 </head>
+    <body>
+        <div class="new">
+            <h1 id="legendText">
+                <span>L</span>
+                <span>é</span>
+                <span>G</span>
+                <span>é</span>
+                <span>N</span>
+                <span>D</span>
+            </h1>
+            <h3 id="WelcomeText">
+                <span>Ü</span>
+                <span>r</span>
+                <span>ü</span>
+                <span>n</span>
+                <span>l</span>
+                <span>e</span>
+                <span>r</span>
+            </h3>
+        </div>
 
-<body>
-    <div class="new">
-        <h1 id="legendText">
-            <span>L</span>
-            <span>é</span>
-            <span>G</span>
-            <span>é</span>
-            <span>N</span>
-            <span>D</span>
-        </h1>
-    </div>
+        <div class="container">
+            <button onclick="window.location.href='/';">
+                <img src="/static/images/Butonlar/AnasayfaPic.png" alt="Logo">
+            </button>
+        </div>
 
-    <div class="container">
-        <button onclick="window.location.href='/';">
-            <img src="/static/images/Butonlar/AnasayfaPic.png" alt="Logo">
-        </button>
-    </div>
+        <div class="showfilter">
+            <a id="search">
+                <button class="menu-button" onclick="toggleMenu()" >☰ Menü</button>
+                <div>
+                    <input type="search" placeholder="Ne istersiniz ?" style="width: 500px; height: 40px;margin-top: 2px;margin-bottom: 2px;">
+                    <button type="submit" style="margin-left: 30px;height: 40px;">Ara</button>
+                </div>
+                <button style="background: #000;border: none;"></button>
+            </a>
+        </div>
+        <div class="clearfix"></div>
+        <div class="RadioSelection">
+            <table id="gender">
+                <tr><td><div style="text-align: center;"><label>Cinsiyet</label></div></td></tr>
+                <tr><td><div><label><input type="radio" name="gender" value="all" checked> Tümü</label></div></td></tr>
+                <tr><td><div><label><input type="radio" name="gender" value="Kadın"> Kadın</label></div></td></tr>
+                <tr><td><div><label><input type="radio" name="gender" value="Erkek"> Erkek</label></div></td></tr>
+                <tr><td><div><label><input type="radio" name="gender" value="Çocuk"> Çocuk</label></div></td></tr>
+            </table >
+            <table id="fb">
+                <tr><td><div style="text-align: center;"><label>Cinsiyet</label></div></td></tr>
+                <tr><td><div><label><input type="radio" name="genderx" value="all" checked> Tümü</label></div></td></tr>
+                <tr><td><div><label><input type="radio" name="genderx" value="Kadın"> Kadın</label></div></td></tr>
+                <tr><td><div><label><input type="radio" name="genderx" value="Erkek"> Erkek</label></div></td></tr>
+                <tr><td><div><label><input type="radio" name="genderx" value="Çocuk"> Çocuk</label></div></td></tr>
+            </table >
 
-    <div class="showfilter">
-        <a id="search">
-            <input type="search" placeholder="Ne istersiniz ?" style="width: 500px;">
-            <button type="submit" style="margin-left: 30px;">Ara</button>
-        </a>
-        <a id="searchButtons">
-            <label>
-                <input type="radio" name="gender" value="Kadın"> Kadın
-            </label>
-        </a>
-    </div>
-    <div id="product"></div>
-    <!-- Harici JavaScript dosyasını bağlama -->
-    <script src="script.js"></script>
-    <script src="color.js"></script>
+        </div>
+        <div class="clearfix"></div>
+        <div class="Category">
+            <ul>
+                <!-- Genel Kategoriler Ana Başlık -->
+                <dt class="main-category">Genel Kategoriler
+                    <ul class="sub-category">
+                        <li>Kadın
+                            <ul class="sub-category">
+                                <li>Giyim</li>
+                                <li>Ayakkabı</li>
+                                <li>Çanta ve Aksesuar</li>
+                                <li>Takı ve Mücevher</li>
+                                <li>Kozmetik ve Kişisel Bakım</li>
+                            </ul>
+                        </li>
+                        <li>Erkek
+                            <ul class="sub-category">
+                                <li>Giyim</li>
+                                <li>Ayakkabı</li>
+                                <li>Saat ve Aksesuar</li>
+                                <li>Spor ve Outdoor</li>
+                            </ul>
+                        </li>
+                        <li>Çocuk
+                            <ul class="sub-category">
+                                <li>Giyim</li>
+                                <li>Oyuncaklar</li>
+                                <li>Bebek Bakım Ürünleri</li>
+                                <li>Çocuk Kitapları</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </dt>
+        
+                <!-- Diğer Kategoriler -->
+                <dt class="main-category">Teknoloji ve Elektronik
+                    <ul class="sub-category">
+                        <li>Bilgisayar ve Tablet</li>
+                        <li>Telefon ve Aksesuarlar</li>
+                        <li>TV, Ses ve Görüntü Sistemleri</li>
+                        <li>Kamera ve Fotoğraf</li>
+                        <li>Akıllı Ev Ürünleri</li>
+                        <li>Oyun Konsolları ve Aksesuarları</li>
+                    </ul>
+                </dt>
+        
+                <dt class="main-category">Spor ve Outdoor
+                    <ul class="sub-category">
+                        <li>Spor Giyim</li>
+                        <li>Spor Ayakkabı</li>
+                        <li>Kamp ve Outdoor Ekipmanları</li>
+                        <li>Fitness ve Egzersiz Aletleri</li>
+                        <li>Bisiklet ve Aksesuarlar</li>
+                    </ul>
+                </dt>
+        
+                <dt class="main-category">Kitap, Müzik ve Hobi
+                    <ul class="sub-category">
+                        <li>Kitap</li>
+                        <li>Müzik Aletleri</li>
+                        <li>Sanat Malzemeleri</li>
+                        <li>Koleksiyon Ürünleri</li>
+                        <li>El Sanatları ve Hobi</li>
+                    </ul>
+                </dt>
+        
+                <dt class="main-category">Sağlık ve Güzellik
+                    <ul class="sub-category">
+                        <li>Cilt Bakımı</li>
+                        <li>Saç Bakımı</li>
+                        <li>Parfüm</li>
+                        <li>Makyaj Ürünleri</li>
+                        <li>Besin Takviyeleri</li>
+                    </ul>
+                </dt>
+        
+                <dt class="main-category">Otomotiv ve Aksesuar
+                    <ul class="sub-category">
+                        <li>Araç Bakım Ürünleri</li>
+                        <li>Oto Aksesuarlar</li>
+                        <li>Motosiklet Ekipmanları</li>
+                        <li>Lastik ve Jant</li>
+                    </ul>
+                </dt>
+        
+                <dt class="main-category">Evcil Hayvan Ürünleri
+                    <ul class="sub-category">
+                        <li>Kedi ve Köpek Mamaları</li>
+                        <li>Kafes ve Taşıma Çantaları</li>
+                        <li>Akvaryum ve Balık Ürünleri</li>
+                        <li>Evcil Hayvan Oyuncakları</li>
+                    </ul>
+                </dt>
+        
+                <dt class="main-category">Gıda ve İçecek
+                    <ul class="sub-category">
+                        <li>Atıştırmalıklar</li>
+                        <li>Kahve ve Çay</li>
+                        <li>Organik ve Doğal Ürünler</li>
+                        <li>İçecekler</li>
+                    </ul>
+                </dt>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <div class="product-main" >
+            <div id="product">
 
-</body>
+            </div>
+        </div>
+        <!-- Harici dosyasını bağlama -->
 
+
+    </body>
 </html>

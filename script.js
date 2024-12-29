@@ -10,7 +10,7 @@ fetch('./data.json')
                         <a href="product.html" onclick="setProductId('${item.id}', event);">
                             <h3><strong>${item.name}</strong></h3>
                         </a>
-                        <img src='${item.image}' alt="${item.name}" >
+                        <img src="${item.image}" alt="${item.name}" >
                         <p><strong>${item.price} ₺ </strong></p>
                         <p>${item.description}</p>
                     </div>
