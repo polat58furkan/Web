@@ -137,26 +137,21 @@ body {
     
 }
 .product {
-    /*
-    flex-wrap: wrap; 
-    align-items: center;
-    
-    margin-left: 80px;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    display: flex;
     float:left;
-    justify-content:flex-start;
-    */
     width: 22%;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
     text-align: center;
-    border-style: solid;
-    border-color: #a6ff01;
     background-color: black;
+    border-style: solid;
+    border-color: black;
 }
 
 .product:hover {
+    border-style: solid;
+    border-color: #a6ff01;
     transform: scale(1.05); /* Hover'da büyütme efekti */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Hover'da gölge büyümesi */
 }
