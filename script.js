@@ -36,3 +36,11 @@ function setProductId(idofitem, event)
     }
 }
 //<a href="product.html" onclick="window.history.pushState({}, '', '${item.name}');onclick="setProductId('${item.id}');"><h3><strong>${item.name}</strong></h3></a>
+function toggleMenu() {
+    const menu = document.getElementById('category'); // Menü elementini seç
+    if (category.style.display === 'none' || category.style.display === '') {
+        category.style.display = 'flex'; // Görünür yap
+    } else {
+        category.style.display = 'none'; // Gizle
+    }
+  }
