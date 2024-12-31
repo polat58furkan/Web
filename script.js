@@ -6,10 +6,8 @@ fetch('./data.json')
         for (let item of items) {
             product.innerHTML += `
                 <div class="product" >
-                    <div id="products" >
-                        <a href="product.html" onclick="setProductId('${item.id}', event);">
-                            <h3><strong>${item.name}</strong></h3>
-                        </a>
+                    <div id="products" href="product.html" onclick="setProductId('${item.id}', event);" >
+                        <h3><strong>${item.name}</strong></h3>
                         <img src="${item.image}" alt="${item.name}" >
                         <p><strong>${item.price} ₺ </strong></p>
                         <p>${item.description}</p>

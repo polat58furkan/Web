@@ -131,24 +131,31 @@ body {
     border-style: solid;
     border-color: #007bff;
     border-radius: 8px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 1);
     display: grid;
     color: blue;
     
 }
+.product-main:after {
+    content: "";
+    display: table;
+    clear: both; /* Float temizleme */
+  }
 .product {
     float:left;
-    margin-top: 0.25%;
-    margin-left: 0.25%;
-    margin-right: 0.25%;
-    margin-bottom: 0.25%;
+
+    margin-top: 0.4%;
+    margin-left: 0.4%;
+    margin-right: 0.4%;
+    margin-bottom: 0.4%;
 
     text-align: center;
     background-color: black;
     border-style: solid;
-    border-color: black;
+    border-color: rgba(0, 0, 0, 1);
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(6, 166, 214, 0.699); /* Ürünlere hoş bir gölge */
+    box-shadow: 0 0.5px 6px rgb(59, 1, 219, 0.7); /* Ürünlere hoş bir gölge */
+    
 }
 
 .product:hover {
