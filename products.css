@@ -10,7 +10,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.8); 
+    background-color: rgba(0, 0, 0, 1); 
     color: white; 
 }
 .container button{
@@ -31,7 +31,7 @@ body {
     border-color: red;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 1);
 }
 .RadioSelection{
     width: 92.5%;
@@ -112,7 +112,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.8);/*   Siyah, %80 şeffaf */
+    background-color: rgba(0, 0, 0, 1);/*   Siyah, %80 şeffaf */
     text-align: center; /* Yatay merkezleme */
 }
 
