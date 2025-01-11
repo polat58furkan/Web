@@ -36,10 +36,9 @@ body {
     box-shadow: 0 2px 5px rgb(221, 17, 17); 
     background: none;
     color: white;
+    vertical-align: middle; 
 }
 .container button img{
-    width: 150px; 
-    height: 75px;
     display: flex;
 }
 .new {
