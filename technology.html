@@ -8,6 +8,7 @@
         <meta name="keywords" content="Legend,legend,efsane,eğlence,süper,game,eticaret">
         <title>LéGéND</title>
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="technology.css">
     </head>
 
     <body>
@@ -24,11 +25,58 @@
         </div>
 
         <div class="container">
-            <button onclick="window.location.href='/';">
-                <img src="/static/images/Butonlar/AnasayfaPic.png" alt="Logo">
-            </button>
+            <button onclick="window.location.href='/';">Anasayfa</button>
+            <button class="menu-button" style="margin-top: 5px;" onclick="toggleButton()" >☰ </button>
 
         </div>
+        <div id="toggleButton">
+            <div class="clasic">
+                <table>
+                    <tr>
+                        <td>
+                            Sol Alan Link : 
+                        </td>
+                        <td style="border: 1px aqua solid;">
+                            <input type="text" name="" id="leftLink">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Sağ Alan Link :
+                        </td>
+                        <td style="border: 1px aqua solid;">
+                            <input type="text" name="" id="rightLink">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input type="submit" value="Yap bakalım" style="background-color: aqua;color: blue; " onclick="PageUpdate()">
+                        </td>
+                        <td>
+                            <input type="submit" value="Sıfırla" style="background-color: aqua;color: blue; " onclick="Reset()">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div> 
+        <div class="content">
+            <div class="left">
+                <h3>Sol Alan</h3>
+                <div>
+                    <iframe id="leftFrame" src=""></iframe>
+                </div>
+                
+            </div>
+            <div class="right">
+                <h3>Sağ Alan</h3>
+                <div>
+                    <iframe id="rightFrame" src=""></iframe>
+                </div>
+            </div>
+        </div>
+        <script src="technology.js"></script>
     </body>
 
 </html>
