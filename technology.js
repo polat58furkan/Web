@@ -44,10 +44,17 @@ function PageUpdate()
 }
 function Reset()
 {
-    // Frame kaynaklarına ekle 
-    const left_frame_link=document.getElementById('leftFrame')
-    const right_frame_link=document.getElementById('rightFrame')
-    left_frame_link.src='';
-    right_frame_link.src='';
+    const menu=document.getElementById('toggleButton')
+    // Inputların değerleri
+    const left_frame_link=document.getElementById('leftLink')
+    const right_frame_link=document.getElementById('rightLink')
+
+    const a =document.getElementById('leftFrame')
+    const b =document.getElementById('rightFrame')
+    a.src="";
+    a.src="";
+
+    left_frame_link.value='';
+    right_frame_link.value='';
 
 }
