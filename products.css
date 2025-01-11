@@ -20,8 +20,8 @@ body {
     color: white;
 }
 .container button img{
-    width: 150px; 
-    height: 75px;
+    width: 125px; 
+    height: 50px;
     display: flex;
 }
 .showfilter {

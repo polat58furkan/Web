@@ -16,6 +16,7 @@
     /*width: 100%;  Tüm genişliği kaplar */
     margin-left: 1%;
     margin-right: 1%;
+    vertical-align: middle;
 }
 .left, .right {
     flex: 1; /*  Eşit genişlikte bölme */
