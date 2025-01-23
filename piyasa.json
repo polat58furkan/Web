@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "tag": "zd",
+        "name": "AMERIKAN DOLARI",
+        "bankTake": "35,1388",
+        "bankSell": "36,1758",
+        "Time": "20:55:44",
+        "Date": "01/23/25",
+        "BankDate": "23.01.2025 - 14:36:19"
+    },
+    {
+        "id": 2,
+        "tag": "ze",
+        "name": "EURO",
+        "bankTake": "36,5828",
+        "bankSell": "37,6623",
+        "Time": "20:55:44",
+        "Date": "01/23/25",
+        "BankDate": "23.01.2025 - 14:36:19"
+    },
+    {
+        "id": 3,
+        "tag": "za",
+        "name": "A02 ALTIN (1000/1000)",
+        "bankTake": "3.136,044048",
+        "bankSell": "3.208,629441",
+        "Time": "20:55:44",
+        "Date": "01/23/25",
+        "BankDate": "23.01.2025 - 14:36:19"
+    },
+    {
+        "id": 4,
+        "tag": "zd",
+        "name": "AMERIKAN DOLARI",
+        "bankTake": "34,4752",
+        "bankSell": "36,7943",
+        "Time": "23:48:27",
+        "Date": "01/23/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 5,
+        "tag": "ze",
+        "name": "EURO",
+        "bankTake": "35,8796",
+        "bankSell": "38,2933",
+        "Time": "23:48:27",
+        "Date": "01/23/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 6,
+        "tag": "za",
+        "name": "A02 ALTIN (1000/1000)",
+        "bankTake": "3.020,426043",
+        "bankSell": "3.457,445666",
+        "Time": "23:48:27",
+        "Date": "01/23/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 7,
+        "tag": "zd",
+        "name": "AMERIKAN DOLARI",
+        "bankTake": "34,4752",
+        "bankSell": "36,7943",
+        "Time": "00:02:30",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 8,
+        "tag": "ze",
+        "name": "EURO",
+        "bankTake": "35,8796",
+        "bankSell": "38,2933",
+        "Time": "00:02:30",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 9,
+        "tag": "za",
+        "name": "A02 ALTIN (1000/1000)",
+        "bankTake": "3.020,426043",
+        "bankSell": "3.457,445666",
+        "Time": "00:02:30",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 10,
+        "tag": "zd",
+        "name": "AMERIKAN DOLARI",
+        "bankTake": "34,4752",
+        "bankSell": "36,7943",
+        "Time": "00:05:06",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 11,
+        "tag": "ze",
+        "name": "EURO",
+        "bankTake": "35,8796",
+        "bankSell": "38,2933",
+        "Time": "00:05:06",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 12,
+        "tag": "za",
+        "name": "A02 ALTIN (1000/1000)",
+        "bankTake": "3.020,426043",
+        "bankSell": "3.457,445666",
+        "Time": "00:05:06",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 13,
+        "tag": "zd",
+        "name": "AMERIKAN DOLARI",
+        "bankTake": "34,4752",
+        "bankSell": "36,7943",
+        "Time": "00:14:13",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 14,
+        "tag": "ze",
+        "name": "EURO",
+        "bankTake": "35,8796",
+        "bankSell": "38,2933",
+        "Time": "00:14:13",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    },
+    {
+        "id": 15,
+        "tag": "za",
+        "name": "A02 ALTIN (1000/1000)",
+        "bankTake": "3.020,426043",
+        "bankSell": "3.457,445666",
+        "Time": "00:14:13",
+        "Date": "01/24/25",
+        "BankDate": "23.01.2025 - 18:00:00"
+    }
+]
