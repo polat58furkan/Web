@@ -281,22 +281,26 @@ animation: bounce 1.5s infinite ease-in-out;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 1); /* Siyah, %80 şeffaf  */
+    background-color: rgba(0, 0, 0, 1); /* Siyah, %80 şeffaf  */    
     color: white; /* Yazı rengini beyaz yapar */
 }
 .chart-container {
     display: flex;
+    /* flex-wrap: wrap;  Ekran daralırsa alt satıra geçsin */
     justify-content: space-around;
     align-items: center;
+    
+    justify-content: center; /* Kutuları ortala */
     gap: 20px; /* Kutular arası boşluk */
     flex-wrap: wrap; /* Eğer ekran daralırsa alt satıra geçsin */
     color: aqua;
 }
 .chart-box {
     flex: 1; /* Esnek boyutlandırma */
-    max-width: 500px; /* Maksimum genişlik */
-    min-width: 250px; /* Minimum genişlik */
+    max-width: 1000px; /* Maksimum genişlik */
+    min-width: 400px; /* Minimum genişlik */
     text-align: center;
+    border: solid aqua 1px;
 }
 canvas {
     width: 100%;
