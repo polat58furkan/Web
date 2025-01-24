@@ -272,6 +272,18 @@ animation: bounce 1.5s infinite ease-in-out;
 
 
 /* Piyasa Grafik kutularını düzenleme */
+.piyasa-container {
+    /*max-width: 100%; /* Tam genişlik */
+    width: 90%; /* Genişliği ekran boyutuna ayarla */
+    margin: 0 auto; /* Ortalamayı koru */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 1); /* Siyah, %80 şeffaf  */
+    color: white; /* Yazı rengini beyaz yapar */
+}
 .chart-container {
     display: flex;
     justify-content: space-around;
