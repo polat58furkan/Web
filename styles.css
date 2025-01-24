@@ -294,7 +294,7 @@ animation: bounce 1.5s infinite ease-in-out;
 }
 .chart-box {
     flex: 1; /* Esnek boyutlandırma */
-    max-width: 300px; /* Maksimum genişlik */
+    max-width: 500px; /* Maksimum genişlik */
     min-width: 250px; /* Minimum genişlik */
     text-align: center;
 }
