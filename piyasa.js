@@ -26,8 +26,8 @@ fetch('piyasa.json')
                 datasets: [{
                     label: 'Altın Satış Fiyatı (₺)',
                     data: goldPrices, // Fiyat bilgileri
-                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
+                    backgroundColor: 'rgba(232, 243, 85, 0.4)',
+                    borderColor: 'rgb(241, 243, 122)',
                     borderWidth: 1,
                     fill: true // Alan doldurma
                 }]
@@ -59,7 +59,7 @@ fetch('piyasa.json')
                 datasets: [{
                     label: 'Euro Satış Fiyatı (₺)',
                     data: euroPrices,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.4)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1,
                     fill: true
@@ -92,7 +92,7 @@ fetch('piyasa.json')
                 datasets: [{
                     label: 'Dolar Satış Fiyatı (₺)',
                     data: dollarPrices,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.4)',
                     borderColor: 'rgb(59, 175, 59)',
                     borderWidth: 1,
                     fill: true
