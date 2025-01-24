@@ -271,13 +271,14 @@ animation: bounce 1.5s infinite ease-in-out;
 }
 
 
-/* Grafik kutularını düzenleme */
+/* Piyasa Grafik kutularını düzenleme */
 .chart-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 20px; /* Kutular arası boşluk */
     flex-wrap: wrap; /* Eğer ekran daralırsa alt satıra geçsin */
+    color: aqua;
 }
 .chart-box {
     flex: 1; /* Esnek boyutlandırma */
