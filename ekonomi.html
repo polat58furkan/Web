@@ -8,6 +8,7 @@
     <meta name="keywords" content="Legend,legend,efsane,eğlence,süper,game,eticaret">
     <title>LéGéND</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -38,6 +39,33 @@
         <button onclick="window.location.href='/';">
             <img src="/static/images/Butonlar/AnasayfaPic.png" alt="Logo">
         </button>
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center;">Ziraat Verileri Grafiği</h1>
+
+        <div class="chart-container">
+            <!-- Altın Grafiği -->
+            <div class="chart-box">
+                <h2>Altın Satış Fiyatı</h2>
+                <canvas id="goldChart"></canvas>
+            </div>
+    
+            <!-- Euro Grafiği -->
+            <div class="chart-box">
+                <h2>Euro Satış Fiyatı</h2>
+                <canvas id="euroChart"></canvas>
+            </div>
+    
+            <!-- Dolar Grafiği -->
+            <div class="chart-box">
+                <h2>Dolar Satış Fiyatı</h2>
+                <canvas id="dollarChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- JavaScript dosyasını bağlama -->
+        <script src="piyasa.js"></script>
     </div>
 
 </body>
