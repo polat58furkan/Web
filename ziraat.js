@@ -1,5 +1,5 @@
 // JSON verisini yüklemek
-fetch('piyasa.json')
+fetch('ziraat.json')
     .then(response => response.json())
     .then(data => {
         // Altın verisi
