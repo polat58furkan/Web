@@ -286,11 +286,11 @@ animation: bounce 1.5s infinite ease-in-out;
 }
 .chart-container {
     display: flex;
-    /* flex-wrap: wrap;  Ekran daralırsa alt satıra geçsin */
     justify-content: space-around;
+    /* flex-wrap: wrap;  Ekran daralırsa alt satıra geçsin */
+    /*
     align-items: center;
-    
-    justify-content: center; /* Kutuları ortala */
+    justify-content: center;  Kutuları ortala */
     gap: 20px; /* Kutular arası boşluk */
     flex-wrap: wrap; /* Eğer ekran daralırsa alt satıra geçsin */
     color: aqua;
