@@ -36,6 +36,10 @@ fetch('piyasa.json')
                 responsive: true,
                 scales: {
                     x: {
+                        ticks: {
+                            maxTicksLimit: 10 // X ekseninde en fazla 10 etiket göster
+                        },
+                        maintainAspectRatio: false, // Oran korumayı devre dışı bırak
                         title: { display: true, text: 'Saat' } // X ekseni başlığı
                     },
                     y: {
@@ -65,6 +69,10 @@ fetch('piyasa.json')
                 responsive: true,
                 scales: {
                     x: {
+                        ticks: {
+                            maxTicksLimit: 10 // X ekseninde en fazla 10 etiket göster
+                        },
+                        maintainAspectRatio: false, // Oran korumayı devre dışı bırak
                         title: { display: true, text: 'Saat' }
                     },
                     y: {
@@ -94,6 +102,10 @@ fetch('piyasa.json')
                 responsive: true,
                 scales: {
                     x: {
+                        ticks: {
+                            maxTicksLimit: 10 // X ekseninde en fazla 10 etiket göster
+                        },
+                        maintainAspectRatio: false, // Oran korumayı devre dışı bırak
                         title: { display: true, text: 'Saat' }
                     },
                     y: {
