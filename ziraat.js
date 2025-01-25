@@ -4,19 +4,19 @@ fetch('ziraat.json')
     .then(data => {
         // Altın verisi
         const goldData = data.filter(item => item.name.includes("ALTIN"));
-        const goldLabels = goldData.map(item => item.Time); // Saat bilgisi
+        const goldLabels = goldData.map(item => item.BankDate ); // Saat bilgisi
         const goldPrices = goldData.map(item => parseFloat(item.bankSell.replace(',', '.'))); // Satış fiyatları
         const goldTookPrices = goldData.map(item => parseFloat(item.bankTake.replace(',', '.'))); // Alış fiyatları
 
         // Euro verisi
         const euroData = data.filter(item => item.name.includes("EURO"));
-        const euroLabels = euroData.map(item => item.Time);
+        const euroLabels = euroData.map(item => item.BankDate);
         const euroPrices = euroData.map(item => parseFloat(item.bankSell.replace(',', '.')));
         const euroTookPrices = euroData.map(item => parseFloat(item.bankTake.replace(',', '.'))); // Alış fiyatları
 
         // Dolar verisi
         const dollarData = data.filter(item => item.name.includes("DOLARI"));
-        const dollarLabels = dollarData.map(item => item.Time);
+        const dollarLabels = dollarData.map(item => item.BankDate);
         const dollarPrices = dollarData.map(item => parseFloat(item.bankSell.replace(',', '.')));
         const dollarTookPrices = dollarData.map(item => parseFloat(item.bankTake.replace(',', '.'))); // Alış fiyatları
 
