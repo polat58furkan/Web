@@ -24,7 +24,7 @@ fetch('ziraat.json')
 
         // Satış
         const goldCtx = document.getElementById('goldChart').getContext('2d');
-        new Chart(goldCtx, {
+        const goldChart = new Chart(goldCtx, {
             type: 'line', // Çizgi grafiği
             data: {
                 labels: goldLabels, // Saat bilgileri
@@ -39,6 +39,10 @@ fetch('ziraat.json')
             },
             options: {
                 responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
                 scales: {
                     x: {
                         ticks: {
@@ -57,7 +61,7 @@ fetch('ziraat.json')
 
         // Alış
         const goldCtx2 = document.getElementById('goldChart2').getContext('2d');
-        new Chart(goldCtx2, {
+        const goldChart2 = new Chart(goldCtx2, {
             type: 'line', // Çizgi grafiği
             data: {
                 labels: goldLabels, // Saat bilgileri
@@ -72,6 +76,10 @@ fetch('ziraat.json')
             },
             options: {
                 responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
                 scales: {
                     x: {
                         ticks: {
@@ -88,10 +96,33 @@ fetch('ziraat.json')
             }
         });
 
+        // Mouse hareketlerini senkronize etme
+        const synchronizeCharts = (event, chart, otherChart) => {
+            const points = chart.getElementsAtEventForMode(event, 'index', { intersect: false }, false);
+            if (points.length) {
+                const pointIndex = points[0].index;
+                const meta = otherChart.getDatasetMeta(0);
+                const activePoint = meta.data[pointIndex];
+                otherChart.tooltip.setActiveElements([{ datasetIndex: 0, index: pointIndex }], {
+                    x: activePoint.x,
+                    y: activePoint.y
+                });
+                otherChart.update();
+            }
+        };
+
+        document.getElementById('goldChart').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, goldChart, goldChart2);
+        });
+
+        document.getElementById('goldChart2').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, goldChart2, goldChart);
+        });
+
         // Euro grafiği
         // Euro Satış
         const euroCtx = document.getElementById('euroChart').getContext('2d');
-        new Chart(euroCtx, {
+        const euroChart = new Chart(euroCtx, {
             type: 'line',
             data: {
                 labels: euroLabels,
@@ -106,6 +137,10 @@ fetch('ziraat.json')
             },
             options: {
                 responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
                 scales: {
                     x: {
                         ticks: {
@@ -123,7 +158,7 @@ fetch('ziraat.json')
         });
         // Euro Alış
         const euroCtx2 = document.getElementById('euroChart2').getContext('2d');
-        new Chart(euroCtx2, {
+        const euroChart2 = new Chart(euroCtx2, {
             type: 'line',
             data: {
                 labels: euroLabels,
@@ -138,6 +173,10 @@ fetch('ziraat.json')
             },
             options: {
                 responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
                 scales: {
                     x: {
                         ticks: {
@@ -154,10 +193,18 @@ fetch('ziraat.json')
             }
         });
 
+        document.getElementById('euroChart').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, euroChart, euroChart2);
+        });
+
+        document.getElementById('euroChart2').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, euroChart2, euroChart);
+        });
+
         // Dolar grafiği
         // Dolar Satış
         const dollarCtx = document.getElementById('dollarChart').getContext('2d');
-        new Chart(dollarCtx, {
+        const dollarChart = new Chart(dollarCtx, {
             type: 'line',
             data: {
                 labels: dollarLabels,
@@ -172,6 +219,10 @@ fetch('ziraat.json')
             },
             options: {
                 responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
                 scales: {
                     x: {
                         ticks: {
@@ -189,7 +240,7 @@ fetch('ziraat.json')
         });
         //Dolar Alış 
         const dollarCtx2 = document.getElementById('dollarChart2').getContext('2d');
-        new Chart(dollarCtx2, {
+        const dollarChart2 = new Chart(dollarCtx2, {
             type: 'line',
             data: {
                 labels: dollarLabels,
@@ -204,6 +255,10 @@ fetch('ziraat.json')
             },
             options: {
                 responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
                 scales: {
                     x: {
                         ticks: {
@@ -219,5 +274,112 @@ fetch('ziraat.json')
                 }
             }
         });
+
+        document.getElementById('dollarChart').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, dollarChart, dollarChart2);
+        });
+
+        document.getElementById('dollarChart2').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, dollarChart2, dollarChart);
+        });
+
+        // Tooltip ve activeElements sıfırlama fonksiyonu
+        const resetChartTooltip = (chart) => {
+            chart.tooltip.setActiveElements([], {}); // Tooltip sıfırlama
+            chart.update(); // Grafiği güncelle
+        };
+
+        // Fare çıkışı olayları için event listener ekleme
+        document.getElementById('goldChart').addEventListener('mouseleave', () => {
+            resetChartTooltip(goldChart2); // Diğer grafikteki tooltip'i temizle
+        });
+        document.getElementById('goldChart2').addEventListener('mouseleave', () => {
+            resetChartTooltip(goldChart); // Diğer grafikteki tooltip'i temizle
+        });
+
+        document.getElementById('euroChart').addEventListener('mouseleave', () => {
+            resetChartTooltip(euroChart2);
+        });
+        document.getElementById('euroChart2').addEventListener('mouseleave', () => {
+            resetChartTooltip(euroChart);
+        });
+
+        document.getElementById('dollarChart').addEventListener('mouseleave', () => {
+            resetChartTooltip(dollarChart2);
+        });
+        document.getElementById('dollarChart2').addEventListener('mouseleave', () => {
+            resetChartTooltip(dollarChart);
+        });
+
+
+        // Çizgi çizen fonksiyon
+        function drawLineBetweenCanvases(index, chart1, chart2, overlayCanvas) {
+            const ctx = overlayCanvas.getContext('2d');
+            const rect1 = chart1.canvas.getBoundingClientRect();
+            const rect2 = chart2.canvas.getBoundingClientRect();
+            const meta1 = chart1.getDatasetMeta(0);
+            const meta2 = chart2.getDatasetMeta(0);
+
+            // İlgili indexteki noktaların koordinatları
+            const point1 = meta1.data[index];
+            const point2 = meta2.data[index];
+
+            const x1 = rect1.left + point1.x;
+            const y1 = rect1.top + point1.y;
+            const x2 = rect2.left + point2.x;
+            const y2 = rect2.top + point2.y;
+
+            // Çizim
+            ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height); // Önce temizle
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // Canvas'lar arası çizgi için overlay canvas ayarı
+        const overlayCanvas = document.getElementById('overlayCanvas');
+        overlayCanvas.width = window.innerWidth;
+        overlayCanvas.height = window.innerHeight;
+        const overlayCtx = overlayCanvas.getContext('2d');
+
+        // Senkronizasyon fonksiyonunu genişletme
+        const synchronizeChartsWithLine = (event, chart, otherChart) => {
+            const points = chart.getElementsAtEventForMode(event, 'index', { intersect: false }, false);
+            if (points.length) {
+                const pointIndex = points[0].index;
+                const meta = otherChart.getDatasetMeta(0);
+                const activePoint = meta.data[pointIndex];
+
+                // Tooltip senkronizasyonu
+                otherChart.tooltip.setActiveElements([{ datasetIndex: 0, index: pointIndex }], {
+                    x: activePoint.x,
+                    y: activePoint.y
+                });
+                otherChart.update();
+
+                // Çizgi ekleme
+                drawLineBetweenCanvases(pointIndex, chart, otherChart, overlayCanvas);
+            }
+        };
+
+        // Gold chart'larda fare olayını güncelleme
+        document.getElementById('goldChart').addEventListener('mousemove', (e) => {
+            synchronizeChartsWithLine(e, goldChart, goldChart2);
+        });
+
+        document.getElementById('goldChart2').addEventListener('mousemove', (e) => {
+            synchronizeChartsWithLine(e, goldChart2, goldChart);
+        });
+
+        document.getElementById('goldChart').addEventListener('mouseleave', () => {
+            overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        });
+        document.getElementById('goldChart2').addEventListener('mouseleave', () => {
+            overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        });
+
     })
     .catch(error => console.error('JSON verisi yüklenirken bir hata oluştu:', error));
