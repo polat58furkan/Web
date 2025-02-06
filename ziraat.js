@@ -111,13 +111,7 @@ fetch('ziraat.json')
             }
         };
 
-        document.getElementById('goldChart').addEventListener('mousemove', (e) => {
-            synchronizeCharts(e, goldChart, goldChart2);
-        });
 
-        document.getElementById('goldChart2').addEventListener('mousemove', (e) => {
-            synchronizeCharts(e, goldChart2, goldChart);
-        });
 
         // Euro grafiği
         // Euro Satış
@@ -193,13 +187,6 @@ fetch('ziraat.json')
             }
         });
 
-        document.getElementById('euroChart').addEventListener('mousemove', (e) => {
-            synchronizeCharts(e, euroChart, euroChart2);
-        });
-
-        document.getElementById('euroChart2').addEventListener('mousemove', (e) => {
-            synchronizeCharts(e, euroChart2, euroChart);
-        });
 
         // Dolar grafiği
         // Dolar Satış
@@ -274,13 +261,54 @@ fetch('ziraat.json')
                 }
             }
         });
+        // Altın
+        document.getElementById('goldChart').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, goldChart, goldChart2);
+            synchronizeCharts(e, goldChart, euroChart);
+            synchronizeCharts(e, goldChart, euroChart2);
+            synchronizeCharts(e, goldChart, dollarChart);
+            synchronizeCharts(e, goldChart, dollarChart2);
+        });
 
+        document.getElementById('goldChart2').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, goldChart2, goldChart);
+            synchronizeCharts(e, goldChart2, euroChart);
+            synchronizeCharts(e, goldChart2, euroChart2);
+            synchronizeCharts(e, goldChart2, dollarChart);
+            synchronizeCharts(e, goldChart2, dollarChart2);
+        });
+        // EURO
+        document.getElementById('euroChart').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, euroChart, euroChart2);
+            synchronizeCharts(e, euroChart, goldChart);
+            synchronizeCharts(e, euroChart, goldChart2);
+            synchronizeCharts(e, euroChart, dollarChart);
+            synchronizeCharts(e, euroChart, dollarChart2);
+        });
+
+        document.getElementById('euroChart2').addEventListener('mousemove', (e) => {
+            synchronizeCharts(e, euroChart2, euroChart);
+            synchronizeCharts(e, euroChart2, goldChart);
+            synchronizeCharts(e, euroChart2, goldChart2);
+            synchronizeCharts(e, euroChart2, dollarChart);
+            synchronizeCharts(e, euroChart2, dollarChart2);
+        });
+
+        // Dolar
         document.getElementById('dollarChart').addEventListener('mousemove', (e) => {
             synchronizeCharts(e, dollarChart, dollarChart2);
+            synchronizeCharts(e, dollarChart, goldChart);
+            synchronizeCharts(e, dollarChart, goldChart2);
+            synchronizeCharts(e, dollarChart, euroChart);
+            synchronizeCharts(e, dollarChart, euroChart2);
         });
 
         document.getElementById('dollarChart2').addEventListener('mousemove', (e) => {
             synchronizeCharts(e, dollarChart2, dollarChart);
+            synchronizeCharts(e, dollarChart2, goldChart);
+            synchronizeCharts(e, dollarChart2, goldChart2);
+            synchronizeCharts(e, dollarChart2, euroChart);
+            synchronizeCharts(e, dollarChart2, euroChart2);
         });
 
         // Tooltip ve activeElements sıfırlama fonksiyonu
@@ -292,23 +320,47 @@ fetch('ziraat.json')
         // Fare çıkışı olayları için event listener ekleme
         document.getElementById('goldChart').addEventListener('mouseleave', () => {
             resetChartTooltip(goldChart2); // Diğer grafikteki tooltip'i temizle
+            resetChartTooltip(euroChart);
+            resetChartTooltip(euroChart2);
+            resetChartTooltip(dollarChart);
+            resetChartTooltip(dollarChart2);
         });
         document.getElementById('goldChart2').addEventListener('mouseleave', () => {
             resetChartTooltip(goldChart); // Diğer grafikteki tooltip'i temizle
+            resetChartTooltip(euroChart);
+            resetChartTooltip(euroChart2);
+            resetChartTooltip(dollarChart);
+            resetChartTooltip(dollarChart2);
         });
 
         document.getElementById('euroChart').addEventListener('mouseleave', () => {
             resetChartTooltip(euroChart2);
+            resetChartTooltip(goldChart);
+            resetChartTooltip(goldChart2);
+            resetChartTooltip(dollarChart);
+            resetChartTooltip(dollarChart2);
         });
         document.getElementById('euroChart2').addEventListener('mouseleave', () => {
             resetChartTooltip(euroChart);
+            resetChartTooltip(goldChart);
+            resetChartTooltip(goldChart2);
+            resetChartTooltip(dollarChart);
+            resetChartTooltip(dollarChart2);
         });
 
         document.getElementById('dollarChart').addEventListener('mouseleave', () => {
             resetChartTooltip(dollarChart2);
+            resetChartTooltip(goldChart);
+            resetChartTooltip(goldChart2);
+            resetChartTooltip(euroChart);
+            resetChartTooltip(euroChart2);
         });
         document.getElementById('dollarChart2').addEventListener('mouseleave', () => {
             resetChartTooltip(dollarChart);
+            resetChartTooltip(goldChart);
+            resetChartTooltip(goldChart2);
+            resetChartTooltip(euroChart);
+            resetChartTooltip(euroChart2);
         });
 
     })
