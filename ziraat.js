@@ -363,5 +363,6 @@ fetch('ziraat.json')
             resetChartTooltip(euroChart2);
         });
 
+        
     })
     .catch(error => console.error('JSON verisi yüklenirken bir hata oluştu:', error));
