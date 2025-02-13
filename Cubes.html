@@ -31,12 +31,6 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
-      //My feed
-      if (navigator.userAgent.toLowerCase().includes("mobile")) 
-      {
-        document.querySelector("meta[name=viewport]").setAttribute("content", "width=1024");
-      }
-
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
       // If type=='warning', a yellow highlight color is used.
