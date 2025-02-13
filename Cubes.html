@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Ceren Hoca | Küp ile öğren</title>
     <link rel="icon" type="image/png" sizes="16x16" href="static/images/Genel/favicon-16x16.png">
     <link rel="stylesheet" href="TemplateData/style.css">
@@ -29,6 +30,12 @@
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
+
+      //My feed
+      if (navigator.userAgent.toLowerCase().includes("mobile")) 
+      {
+        document.querySelector("meta[name=viewport]").setAttribute("content", "width=1024");
+      }
 
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
