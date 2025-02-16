@@ -31,6 +31,7 @@ body {
     background-color: rgba(0, 0, 0, 0.8); /* Siyah, %80 şeffaf  */
     color: white; /* Yazı rengini beyaz yapar */
 }
+
 .container button{
     margin-left: 10px;
     box-shadow: 0 2px 5px rgb(221, 17, 17); 
@@ -39,6 +40,32 @@ body {
     vertical-align: middle;
 }
 .container button img{
+    width: 125px; 
+    height: 50px;
+    display: flex;
+}
+.hocacontainer {
+    /*max-width: 100%; /* Tam genişlik */
+    width: 90%; /* Genişliği ekran boyutuna ayarla */
+    margin: 0 auto; /* Ortalamayı koru */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.8); /* Siyah, %80 şeffaf  */
+    color: white; /* Yazı rengini beyaz yapar */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+.hocacontainer button{
+    margin-left: 10px;
+    box-shadow: 0 2px 5px rgb(221, 17, 17); 
+    background: none;
+    color: white;
+    vertical-align: middle;
+}
+.hocacontainer button img{
     width: 125px; 
     height: 50px;
     display: flex;
