@@ -8490,36 +8490,6 @@
         "BankDate": "26.03.2025 - 17:05:29"
     },
     {
-        "id": 850,
-        "tag": "zd",
-        "name": "AMERIKAN DOLARI",
-        "bankTake": "36,5037",
-        "bankSell": "39,5092",
-        "Time": "09:04:27",
-        "Date": "03/27/25",
-        "BankDate": "26.03.2025 - 17:59:41"
-    },
-    {
-        "id": 851,
-        "tag": "ze",
-        "name": "EURO",
-        "bankTake": "39,3947",
-        "bankSell": "42,6384",
-        "Time": "09:04:27",
-        "Date": "03/27/25",
-        "BankDate": "26.03.2025 - 17:59:41"
-    },
-    {
-        "id": 852,
-        "tag": "za",
-        "name": "A02 ALTIN (1000/1000)",
-        "bankTake": "3542,343699",
-        "bankSell": "4054,878580",
-        "Time": "09:04:27",
-        "Date": "03/27/25",
-        "BankDate": "26.03.2025 - 17:59:41"
-    },
-    {
         "id": 853,
         "tag": "zd",
         "name": "AMERIKAN DOLARI",
