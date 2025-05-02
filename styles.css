@@ -360,7 +360,7 @@ animation: bounce 1.5s infinite ease-in-out;
 }
 .chart-box-detail {
     flex: 1; /* Esnek boyutlandırma */
-    max-width: 90%; /* Maksimum genişlik */
+    max-width: 1000px; /* Maksimum genişlik */
     min-width: 400px; /* Minimum genişlik */
     text-align: center;
     border: solid aqua 1px;

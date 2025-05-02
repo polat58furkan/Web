@@ -20,8 +20,6 @@ function filterAndSortByDays(data, daysBack) {
 
     return filtered;
 }
-let goldData = []; // global değişken
-let goldChart, goldChart2; // grafikler de dışarıdan ulaşılabilir olmalı
 
 document.getElementById('filterBtn').addEventListener('click', () => {
     const days = parseInt(document.getElementById('dayCount').value);
@@ -46,8 +44,32 @@ document.getElementById('filterBtn').addEventListener('click', () => {
 fetch('ziraat.json')
     .then(response => response.json())
     .then(data => {
+
+        // Bugünün tarihi
+        const today = new Date();
+
+        // 5 gün önceki tarih
+        const fiveDaysAgo = new Date();
+        fiveDaysAgo.setDate(today.getDate() - 5);
+
+        // Altın verilerini filtrele
+        const goldData = data.filter(item => {
+            if (!item.name.includes("ALTIN")) return false;
+
+            // BankDate formatı: "22.04.2025 - 16:29:49"
+            const [datePart, timePart] = item.BankDate.split(" - ");
+            const [day, month, year] = datePart.split(".");
+            const [hour, minute, second] = timePart.split(":");
+
+            const bankDate = new Date(year, month - 1, day, hour, minute, second);
+
+            // Son 5 gün içinde mi?
+            return bankDate >= fiveDaysAgo;
+        });
+
+
         // Altın verisi
-        const goldData = data.filter(item => item.name.includes("ALTIN"));
+       // const goldData = data.filter(item => item.name.includes("ALTIN"));
         const goldLabels = goldData.map(item => item.BankDate ); // Saat bilgisi
         const goldPrices = goldData.map(item => parseFloat(item.bankSell.replace(',', '.'))); // Satış fiyatları
         const goldTookPrices = goldData.map(item => parseFloat(item.bankTake.replace(',', '.'))); // Alış fiyatları
