@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/images/Genel/favicon-16x16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Legend,legend,efsane,eğlence,süper,game,eticaret">
+    <title>LéGéND</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 80vh; }
+        #controls { padding: 10px; }
+      </style>
+  </head>
+  <body>
+
+    <div id="controls">
+        <input type="text" id="destination" placeholder="Nereye gitmek istiyorsun?">
+        <button onclick="getRoute()">Yol Tarifi Al</button>
+      </div>
+    
+      <div id="map"></div>
+    
+      <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+      <script>
+        let map = L.map('map').setView([0, 0], 13);
+        let userMarker, routeLine;
+    
+        // Harita katmanı
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap katkıcıları'
+        }).addTo(map);
+    
+        let userLatLng;
+    
+        // Konum al
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            userLatLng = [position.coords.latitude, position.coords.longitude];
+            map.setView(userLatLng, 14);
+    
+            userMarker = L.marker(userLatLng).addTo(map)
+              .bindPopup("Senin Konumun")
+              .openPopup();
+          }, () => alert("Konum alınamadı."));
+        } else {
+          alert("Tarayıcın konum desteği vermiyor.");
+        }
+    
+        async function getRoute() {
+          const destinationText = document.getElementById("destination").value;
+          if (!destinationText || !userLatLng) return alert("Konum veya hedef eksik!");
+    
+          // Hedefi geocode edelim (nominatim ile)
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(destinationText)}`);
+          const data = await res.json();
+          if (!data || data.length === 0) return alert("Hedef bulunamadı!");
+    
+          const destLat = parseFloat(data[0].lat);
+          const destLng = parseFloat(data[0].lon);
+          const destLatLng = [destLat, destLng];
+    
+          // Mevcut rota varsa sil
+          if (routeLine) {
+            map.removeLayer(routeLine);
+          }
+    
+          // OSRM ile rota al
+          const url = `https://router.project-osrm.org/route/v1/driving/${userLatLng[1]},${userLatLng[0]};${destLng},${destLat}?overview=full&geometries=geojson`;
+    
+          const routeRes = await fetch(url);
+          const routeData = await routeRes.json();
+    
+          if (routeData.code !== "Ok") return alert("Rota bulunamadı!");
+    
+          const routeCoords = routeData.routes[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+          routeLine = L.polyline(routeCoords, { color: 'blue', weight: 5 }).addTo(map);
+          map.fitBounds(routeLine.getBounds());
+    
+          // Hedef işaretle
+          L.marker(destLatLng).addTo(map).bindPopup("Hedef").openPopup();
+        }
+      </script>
+
+  </body>
+</html>
