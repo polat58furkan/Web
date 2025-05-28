@@ -1,3 +1,10 @@
+let goldChart = null;     // Satış grafiği için global değişken
+let goldChart2 = null;    // Alış grafiği için global değişken
+let euroChart = null;     // Euro Satış grafiği için global değişken
+let euroChart2 = null;    // Euro Alış grafiği için global değişken
+let dollarChart = null;   // Dolar Satış grafiği için global değişken
+let dollarChart2 = null;  // Dolar Alış grafiği için global değişken
+
 // JSON verisini yüklemek
 fetch('ziraat.json')
     .then(response => response.json())
@@ -19,6 +26,14 @@ fetch('ziraat.json')
         const dollarLabels = dollarData.map(item => item.BankDate);
         const dollarPrices = dollarData.map(item => parseFloat(item.bankSell.replace(',', '.')));
         const dollarTookPrices = dollarData.map(item => parseFloat(item.bankTake.replace(',', '.'))); // Alış fiyatları
+
+        // Eğer önceki grafikler varsa yok et
+        if (goldChart) goldChart.destroy();
+        if (goldChart2) goldChart2.destroy();
+        if (euroChart) euroChart.destroy();
+        if (euroChart2) euroChart2.destroy();
+        if (dollarChart) dollarChart.destroy();
+        if (dollarChart2) dollarChart2.destroy();
 
         // Altın grafiği
 
