@@ -36,6 +36,7 @@ fetch('ziraat.json')
         if (dollarChart) dollarChart.destroy();
         if (dollarChart2) dollarChart2.destroy();
         */
+       
         // Altın grafiği
 
         // Satış
