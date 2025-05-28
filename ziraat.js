@@ -27,6 +27,7 @@ fetch('ziraat.json')
         const dollarPrices = dollarData.map(item => parseFloat(item.bankSell.replace(',', '.')));
         const dollarTookPrices = dollarData.map(item => parseFloat(item.bankTake.replace(',', '.'))); // Alış fiyatları
 
+        /*
         // Eğer önceki grafikler varsa yok et
         if (goldChart) goldChart.destroy();
         if (goldChart2) goldChart2.destroy();
@@ -34,7 +35,7 @@ fetch('ziraat.json')
         if (euroChart2) euroChart2.destroy();
         if (dollarChart) dollarChart.destroy();
         if (dollarChart2) dollarChart2.destroy();
-
+        */
         // Altın grafiği
 
         // Satış
