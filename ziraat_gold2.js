@@ -31,7 +31,7 @@ document.getElementById('filterBtn').addEventListener('click', () => {
             });
 
 
-            // Altın verisi
+        // Altın verisi
         // const goldData = data.filter(item => item.name.includes("ALTIN"));
             const goldLabels = goldData.map(item => item.BankDate ); // Saat bilgisi
             const goldPrices = goldData.map(item => parseFloat(item.bankSell.replace(',', '.'))); // Satış fiyatları
