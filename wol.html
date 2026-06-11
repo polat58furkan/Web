@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kral PC Kontrol Paneli</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #121212; color: #fff; text-align: center; padding-top: 50px; }
+        .container { background: #1e1e1e; display: inline-block; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h1 { color: #00adb5; }
+        .btn { background: #00adb5; border: none; color: white; padding: 15px 32px; text-align: center; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 8px; font-weight: bold; transition: 0.3s; width: 100%; }
+        .btn:hover { background: #007a80; }
+        #status { margin-top: 15px; font-size: 14px; color: #888; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Kral PC Kontrol Paneli</h1>
+    <p>PC'yi uzaktan uyandırmak için aşağıdaki butona bas.</p>
+    <button id="wakeBtn" class="btn">💻 BİLGİSAYARI AÇ</button>
+    <div id="status">Durum kontrol ediliyor...</div>
+</div>
+
+<script>
+    // GitHub Bilgilerin
+    const OWNER = "polat58furkan";
+    const REPO = "Web";
+    const PATH = "durum.json"; // Eğer bir klasörün içindeyse klasor/durum.json yaz
+    const TOKEN = "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"; 
+
+    const wakeBtn = document.getElementById('wakeBtn');
+    const statusDiv = document.getElementById('status');
+
+    wakeBtn.addEventListener('click', async () => {
+        statusDiv.innerText = "GitHub güncelleniyor...";
+        try {
+            // GitHub API'sinden dosyanın mevcut durumunu ve 'sha' kodunu alıyoruz (Güncellemek için şart)
+            const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`);
+            const data = await res.json();
+            const sha = data.sha;
+
+            // Dosya içeriğini "tetik: 1" yapıp Base64 formatına çeviriyoruz
+            const updatedContent = btoa(JSON.stringify({ tetik: 1 }));
+
+            // GitHub'daki dosyayı güncelliyoruz
+            const putRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${TOKEN}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: "PC Tetiklendi",
+                    content: updatedContent,
+                    sha: sha
+                })
+            });
+
+            if(putRes.ok) {
+                statusDiv.innerHTML = "<span style='color:green; font-weight:bold;'>🚀 Bilgisayarı Açma Emri Gönderildi!</span>";
+            } else {
+                statusDiv.innerText = "Sinyal gönderilemedi.";
+            }
+        } catch (err) {
+            statusDiv.innerText = "Hata: " + err;
+        }
+    });
+</script>
+</body>
+</html>
