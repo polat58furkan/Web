@@ -6,19 +6,26 @@
     <title>Kral PC Kontrol Paneli</title>
     <style>
         body { font-family: Arial, sans-serif; background: #121212; color: #fff; text-align: center; padding-top: 50px; }
-        .container { background: #1e1e1e; display: inline-block; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        h1 { color: #00adb5; }
-        .btn { background: #00adb5; border: none; color: white; padding: 15px 32px; text-align: center; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 8px; font-weight: bold; transition: 0.3s; width: 100%; }
-        .btn:hover { background: #007a80; }
-        #status { margin-top: 15px; font-size: 14px; color: #888; }
+        .container { background: #1e1e1e; display: inline-block; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); width: 320px; }
+        h1 { color: #00adb5; font-size: 24px; margin-bottom: 20px; }
+        .btn { border: none; color: white; padding: 15px 20px; text-align: center; font-size: 16px; margin: 8px 0; cursor: pointer; border-radius: 8px; font-weight: bold; transition: 0.3s; width: 100%; display: block; }
+        .btn-open { background: #00adb5; }
+        .btn-open:hover { background: #007a80; }
+        .btn-reset { background: #e74c3c; }
+        .btn-reset:hover { background: #c0392b; }
+        #status { margin-top: 15px; font-size: 14px; color: #aaa; font-weight: 500; min-hieght: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Kral PC Kontrol Paneli</h1>
-    <p>PC'yi uzaktan uyandırmak için aşağıdaki butona bas.</p>
-    <button id="wakeBtn" class="btn">💻 BİLGİSAYARI AÇ</button>
+    <h1>Kral PC Kontrol Panel</h1>
+    <p style="font-size: 14px; color: #888;">PC'yi yönetmek için aşağıdaki butonları kullan.</p>
+    
+    <button id="wakeBtn" class="btn btn-open">💻 BİLGİSAYARI AÇ (1 YAP)</button>
+    
+    <button id="resetBtn" class="btn btn-reset">🔄 TETİĞİ SIFIRLA (0 YAP)</button>
+    
     <div id="status">Durum kontrol ediliyor...</div>
 </div>
 
@@ -32,42 +39,64 @@
     const TOKEN = part1 + part2;
 
     const wakeBtn = document.getElementById('wakeBtn');
+    const resetBtn = document.getElementById('resetBtn');
     const statusDiv = document.getElementById('status');
 
-    wakeBtn.addEventListener('click', async () => {
+    // Ortak GitHub Güncelleme Fonksiyonu
+    async function githubDurumGuncelle(yeniDeger) {
+        statusDiv.style.color = "#aaa";
         statusDiv.innerText = "GitHub güncelleniyor...";
+        
         try {
-            // GitHub API'sinden dosyanın mevcut durumunu ve 'sha' kodunu alıyoruz (Güncellemek için şart)
-            const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`);
+            // 1. Güncel SHA kodunu al
+            const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`, {
+                headers: {
+                    'Authorization': `Bearer ${TOKEN}`,
+                    'Accept': 'application/vnd.github+json'
+                }
+            });
+            
+            if(!res.ok) throw new Error("Dosya bilgisi alınamadı. Konfigürasyonu kontrol et.");
             const data = await res.json();
             const sha = data.sha;
 
-            // Dosya içeriğini "tetik: 1" yapıp Base64 formatına çeviriyoruz
-            const updatedContent = btoa(JSON.stringify({ tetik: 1 }));
+            // 2. İçeriği hazırla
+            const updatedContent = btoa(JSON.stringify({ "tetik": yeniDeger }));
 
-            // GitHub'daki dosyayı güncelliyoruz
+            // 3. GitHub'a gönder
             const putRes = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`, {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `token ${TOKEN}`,
+                    'Authorization': `Bearer ${TOKEN}`,
+                    'Accept': 'application/vnd.github+json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    message: "PC Tetiklendi",
+                    message: `WoL Durumu ${yeniDeger} Yapildi`,
                     content: updatedContent,
                     sha: sha
                 })
             });
 
             if(putRes.ok) {
-                statusDiv.innerHTML = "<span style='color:green; font-weight:bold;'>🚀 Bilgisayarı Açma Emri Gönderildi!</span>";
+                if(yeniDeger === 1) {
+                    statusDiv.innerHTML = "<span style='color:#2ecc71;'>🚀 Bilgisayarı Açma Emri Gönderildi! (1)</span>";
+                } else {
+                    statusDiv.innerHTML = "<span style='color:#e67e22;'>🔄 Tetik Başarıyla Sıfırlandı! (0)</span>";
+                }
             } else {
-                statusDiv.innerText = "Sinyal gönderilemedi.";
+                const errorData = await putRes.json();
+                statusDiv.innerText = "İşlem başarısız: " + errorData.message;
             }
         } catch (err) {
-            statusDiv.innerText = "Hata: " + err;
+            statusDiv.style.color = "#e74c3c";
+            statusDiv.innerText = "Hata: " + err.message;
         }
-    });
+    }
+
+    // Buton Dinleyicileri
+    wakeBtn.addEventListener('click', () => githubDurumGuncelle(1));
+    resetBtn.addEventListener('click', () => githubDurumGuncelle(0));
 </script>
 </body>
 </html>
