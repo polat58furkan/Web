@@ -1,1 +1,16 @@
 
+We would like to clarify a few points regarding our recent z/OS 3.1 migration and its impact on DDS (GPMSERVE) CPU usage across our Sysplex environment.
+
+1. MINTIME Settings & CPU Impact
+For several years, our MINTIME has been configured to 10 seconds on our xx9* systems, while on xxK1-2 systems, it remains at the default of 100 seconds. This is not a change introduced by the z/OS 3.1 migration.
+However, we are investigating whether having different MINTIME values on different LPARs within the same Sysplex has an impact on increasing DDS (GPMSERVE) CPU consumption on z/OS 3.1.
+
+Note: Maintaining a 10-second interval on our XX9x LPARs is critical for our operations. However, if having mismatched values is causing the CPU spike, we can consider lowering the MINTIME on K1-2 systems to 10 seconds as well. Could you please share your insights on this?
+
+2. Unusual Timing Pattern Clarification
+Regarding the "unusual timing pattern" warning we observed (specifically, receiving 6 requests within approximately 55 seconds): Could you please elaborate on what triggers this flag? Is it related to the period/frequency of the requests, the total volume (count), or a combination of both?
+
+3. DDS Specific Java Tuning
+Do you have any recommended parameter changes or best practices specifically for DDS-specific Java tuning to help optimize performance in this setup?
+
+Thank you in advance for your support and guidance.
