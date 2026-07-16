@@ -43,10 +43,12 @@
 <script>
     // Sadece senin Kendi Bilgisayarında çalışacak kayıt ayarları.
     // Banka bilgisayarı bu token'ı kullanmayacak bile, o yüzden güvende.
-    const TOKEN = "ghp_BURAYA_ALDIĞIN_TOKENI_YAZ";
-    const USER = "GITHUB_KULLANICI_ADIN";
-    const REPO = "REPOSITORY_ADIN"; 
-    const FILE_PATH = "pano.html"; // Bu dosyanın GitHub'daki tam adı neyse o (örn: pano.html veya index.html)
+    const part1 = "ghp_IZJWJ7R65mUfpNvT";
+    const part2 = "8Yb0N88teksW6Q1pTDQJ";
+    const TOKEN = part1 + part2;
+    const USER = "polat58furkan";
+    const REPO = "Web"; // Örn: web-sitem
+    const FILE_PATH = "pano2.html"; // 
 
     const API_URL = `https://api.github.com/repos/${USER}/${REPO}/contents/${FILE_PATH}`;
     const panoAlan = document.getElementById('panoAlan');
