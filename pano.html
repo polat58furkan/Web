@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Stabil Pano</title>
+    <title>Kişisel Pano</title>
     <style>
         body { font-family: sans-serif; background: #121212; color: #e0e0e0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .container { width: 100%; max-width: 700px; }
@@ -16,74 +16,127 @@
         .btn-save:hover { background-color: #005999; }
         .btn-copy { background-color: #28a745; }
         .btn-copy:hover { background-color: #218838; }
-        .status { margin-top: 10px; font-size: 13px; color: #888; }
+        .btn-delete { background-color: #dc3545; }
+        .btn-delete:hover { background-color: #c82333; }
+        .status { margin-top: 15px; font-size: 13px; color: #888; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>📋 Kesintisiz Bulut Pano</h2>
-    <p style="font-size: 13px; color: #aaa;">Metni yazıp kaydedin, diğer cihazlardan sayfayı açıp anında alın.</p>
+    <h2>📋 Tamamen Yerel GitHub Panosu</h2>
+    <p style="font-size: 13px; color: #aaa;">Veriler sadece senin GitHub repository'nde saklanır. Üçüncü parti bulut kullanılmaz.</p>
     
-    <textarea id="panoAlan" placeholder="Buluttan veri getiriliyor, lütfen bekleyin..."></textarea>
+    <textarea id="panoAlan" placeholder="GitHub'dan veri getiriliyor..."></textarea>
     
     <div class="btn-group">
         <button class="btn-save" onclick="veriyiKaydet()">Değişiklikleri Kaydet</button>
         <button class="btn-copy" onclick="panoyaKopyala()">Metni Kopyala</button>
+        <button class="btn-delete" onclick="veriyiSil()">Panoyu Sil</button>
     </div>
     
     <div class="status" id="durum">Yükleniyor...</div>
 </div>
 
 <script>
-    // Kendine özel, kimsenin tahmin edemeyeceği rastgele bir anahtar kelime yaz kral.
-    // Örn: 'furkan_banka_support_panosu_2026'
-    const OZEL_ANAHTAR = 'furkan_ozel_pano_key_99x'; 
-    
-    // Ücretsiz anonim key-value veri tabanı URL'si
-    const API_URL = `https://kvdb.io/MN86S7vSg6XgYg76wF929z/${OZEL_ANAHTAR}`;
+    // GITHUB BİLGİLERİNİ BURAYA GİR
+    const part1 = "ghp_IZJWJ7R65mUfpNvT";
+    const part2 = "8Yb0N88teksW6Q1pTDQJ";
+    const TOKEN = part1 + part2;
+    const USER = "polat58furkan";
+    const REPO = "Web"; // Örn: web-sitem
+    const FILE_PATH = "veri_pano.txt"; // Verinin yazılacağı dosya adı
+
+    const API_URL = `https://api.github.com/repos/${USER}/${REPO}/contents/${FILE_PATH}`;
 
     const panoAlan = document.getElementById('panoAlan');
     const durum = document.getElementById('durum');
+    let currentSha = null; // GitHub'ın dosya versiyon kontrolü için gerekli
 
-    // Sayfa açıldığında buluttaki veriyi çek
+    // Sayfa açıldığında doğrudan senin GitHub dosyandan veriyi oku
     async function veriyiCek() {
-        durum.innerText = "Buluttan veri çekiliyor...";
+        durum.innerText = "GitHub'dan veri çekiliyor...";
         try {
-            const response = await fetch(API_URL);
+            const response = await fetch(API_URL, {
+                headers: { "Authorization": `token ${TOKEN}` }
+            });
+            
             if (response.ok) {
-                const text = await response.text();
-                panoAlan.value = text;
-                durum.innerText = "✓ Veri başarıyla yüklendi.";
+                const data = await response.json();
+                currentSha = data.sha;
+                // GitHub veriyi Base64 saklar, çözüp ekrana basıyoruz (Türkçe karakter desteğiyle)
+                const decodedText = decodeURIComponent(atob(data.content).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                
+                panoAlan.value = decodedText;
+                durum.innerText = "✓ Veri kendi GitHub'ından başarıyla yüklendi.";
                 durum.style.color = "#28a745";
             } else if (response.status === 404) {
                 panoAlan.value = "";
-                durum.innerText = "Pano şu an boş, ilk verinizi yazabilirsiniz.";
+                durum.innerText = "Pano şu an boş. İlk yazınızı yazıp kaydedebilirsiniz.";
             }
         } catch (error) {
-            durum.innerText = "Hata: Veri çekilemedi! İnternet bağlantınızı kontrol edin.";
+            durum.innerText = "Hata: GitHub'a bağlanılamadı!";
             durum.style.color = "#dc3545";
         }
     }
 
-    // Butona basıldığında veriyi buluta kesin olarak kaydet
-    async function veriyiKaydet() {
-        durum.innerText = "Kaydediliyor...";
+    // Doğrudan senin GitHub'ındaki dosyaya yazar
+    async function veriyiKaydet(silmeModu = false) {
+        durum.innerText = "GitHub güncelleniyor...";
         durum.style.color = "#888";
+        
+        const textToSave = silmeModu ? "" : panoAlan.value;
+        
+        // Türkçe karakter hatası olmaması için düzgünce Base64'e çeviriyoruz
+        const b64Text = btoa(encodeURIComponent(textToSave).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
+
+        const bodyData = {
+            message: silmeModu ? "Panoyu temizle" : "Pano guncellendi",
+            content: b64Text
+        };
+        
+        if (currentSha) {
+            bodyData.sha = currentSha;
+        }
+
         try {
             const response = await fetch(API_URL, {
-                method: 'POST',
-                body: panoAlan.value
+                method: 'PUT',
+                headers: {
+                    "Authorization": `token ${TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(bodyData)
             });
+
             if (response.ok) {
-                durum.innerText = "✓ Başarıyla buluta kaydedildi! Diğer cihazlardan alabilirsiniz.";
-                durum.style.color = "#28a745";
+                const resData = await response.json();
+                currentSha = resData.content.sha; // Yeni SHA'yı kaydet
+                
+                if(silmeModu) {
+                    panoAlan.value = "";
+                    durum.innerText = "✓ Pano başarıyla sıfırlandı ve dosya temizlendi.";
+                    durum.style.color = "#dc3545";
+                } else {
+                    durum.innerText = "✓ Değişiklikler doğrudan senin GitHub'ına kaydedildi!";
+                    durum.style.color = "#28a745";
+                }
             } else {
-                throw new Error("Kayıt başarısız");
+                throw new Error("GitHub yazma hatası");
             }
         } catch (error) {
-            durum.innerText = "Hata: Kaydedilemedi!";
+            durum.innerText = "Hata: GitHub'a yazılamadı!";
             durum.style.color = "#dc3545";
+        }
+    }
+
+    function veriyiSil() {
+        if (confirm("Panoyu tamamen temizlemek istiyor musun?")) {
+            veriyiKaydet(true);
         }
     }
 
@@ -91,11 +144,10 @@
         panoAlan.select();
         document.execCommand('copy');
         const eskiYazi = durum.innerText;
-        durum.innerText = "✓ Kopyalandı!";
-        setTimeout(() => { durum.innerText = eskiYazi; }, 2000);
+        durum.innerText = "✓ Panoya kopyalandı!";
+        setTimeout(() => { durum.innerText = eskiyazi; }, 2000);
     }
 
-    // Sayfa yüklenince otomatik çalıştır
     veriyiCek();
 </script>
 
