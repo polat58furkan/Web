@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Kişisel Pano</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: #e0e0e0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 700px; }
+        textarea { width: 100%; height: 350px; background: #1e1e1e; color: #fff; border: 1px solid #333; padding: 15px; border-radius: 6px; font-size: 15px; resize: vertical; }
+        textarea:focus { outline: none; border-color: #007acc; }
+        .btn-group { margin-top: 15px; display: flex; gap: 10px; }
+        button { color: white; border: none; padding: 12px 24px; font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
+        .btn-save { background-color: #007acc; }
+        .btn-save:hover { background-color: #005999; }
+        .btn-copy { background-color: #28a745; }
+        .btn-copy:hover { background-color: #218838; }
+        .btn-delete { background-color: #dc3545; }
+        .btn-delete:hover { background-color: #c82333; }
+        .status { margin-top: 15px; font-size: 13px; color: #888; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📋 Banka Firewall Uyumlu Pano</h2>
+    <p style="font-size: 13px; color: #aaa;">Yabancı bulut yok, ekstra API isteği yok. Veri doğrudan sayfa kaynağında taşınır.</p>
+    
+    <!-- VERİ DEPOSU BAŞLANGICI -->
+    <textarea id="panoAlan" placeholder="Buraya yazın..."></textarea>
+    <!-- VERİ DEPOSU BİTİŞİ -->
+    
+    <div class="btn-group">
+        <button class="btn-save" onclick="veriyiKaydet()">Değişiklikleri Kaydet</button>
+        <button class="btn-copy" onclick="panoyaKopyala()">Metni Kopyala</button>
+        <button class="btn-delete" onclick="veriyiSil()">Panoyu Sil</button>
+    </div>
+    
+    <div class="status" id="durum">✓ Hazır.</div>
+</div>
+
+<script>
+    // Sadece senin Kendi Bilgisayarında çalışacak kayıt ayarları.
+    // Banka bilgisayarı bu token'ı kullanmayacak bile, o yüzden güvende.
+    const TOKEN = "ghp_BURAYA_ALDIĞIN_TOKENI_YAZ";
+    const USER = "GITHUB_KULLANICI_ADIN";
+    const REPO = "REPOSITORY_ADIN"; 
+    const FILE_PATH = "pano.html"; // Bu dosyanın GitHub'daki tam adı neyse o (örn: pano.html veya index.html)
+
+    const API_URL = `https://api.github.com/repos/${USER}/${REPO}/contents/${FILE_PATH}`;
+    const panoAlan = document.getElementById('panoAlan');
+    const durum = document.getElementById('durum');
+
+    // GitHub'a dosyayı doğrudan kendi kendini güncelleyecek şekilde gönderme fonksiyonu
+    async function veriyiKaydet(silmeModu = false) {
+        durum.innerText = "GitHub güncelleniyor (Bu işlemi banka PC'sinden yapamazsın)...";
+        durum.style.color = "#888";
+        
+        const yeniMetin = silmeModu ? "" : panoAlan.value;
+
+        try {
+            // Önce mevcut dosyanın SHA değerini ve tüm kodunu çekiyoruz (Kendi bilgisayarımızda olduğumuz için engel yok)
+            const getRes = await fetch(API_URL, { headers: { "Authorization": `token ${TOKEN}` } });
+            if (!getRes.ok) throw new Error("Mevcut dosya çekilemedi.");
+            const getData = await getRes.json();
+            const currentSha = getData.sha;
+            
+            // Mevcut HTML kodunu çözüyoruz
+            const tamHtml = decodeURIComponent(atob(getData.content).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            // HTML kodunun içindeki <textarea id="panoAlan">...</textarea> bölümünü bulup yeni metinle değiştiriyoruz
+            const regex = /(<textarea id="panoAlan"[^>]*>)([\s\S]*?)(<\/textarea>)/;
+            const yeniHtml = tamHtml.replace(regex, `$1${yeniMetin}$3`);
+
+            // Yeni HTML'i Base64'e çevirip GitHub'a geri yüklüyoruz
+            const b64Text = btoa(encodeURIComponent(yeniHtml).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+            }));
+
+            const putRes = await fetch(API_URL, {
+                method: 'PUT',
+                headers: { "Authorization": `token ${TOKEN}`, "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    message: silmeModu ? "Pano silindi" : "Pano icerigi guncellendi",
+                    content: b64Text,
+                    sha: currentSha
+                })
+            });
+
+            if (putRes.ok) {
+                durum.innerText = silmeModu ? "✓ Pano temizlendi!" : "✓ Başarıyla kaydedildi! 1-2 dakika içinde banka PC'sinde görünecektir.";
+                durum.style.color = "#28a745";
+                if(silmeModu) panoAlan.value = "";
+            } else {
+                throw new Error("Yazma hatası.");
+            }
+        } catch (error) {
+            durum.innerText = "Hata: Güncelleme başarısız! (Banka bilgisayarından kaydetmeye çalışıyorsanız bu hata normaldir)";
+            durum.style.color = "#dc3545";
+        }
+    }
+
+    function veriyiSil() {
+        if (confirm("Panoyu tamamen temizlemek istiyor musun?")) {
+            veriyiKaydet(true);
+        }
+    }
+
+    function panoyaKopyala() {
+        panoAlan.select();
+        document.execCommand('copy');
+        durum.innerText = "✓ Panoya kopyalandı!";
+        setTimeout(() => { durum.innerText = "✓ Hazır."; }, 2000);
+    }
+</script>
+
+</body>
+</html>
