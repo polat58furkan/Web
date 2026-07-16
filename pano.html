@@ -4,70 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Anlık Pano</title>
-    <!-- Bulut senkronizasyonu sağlayan GunDB kütüphanesi -->
-    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <title>Stabil Pano</title>
     <style>
         body { font-family: sans-serif; background: #121212; color: #e0e0e0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .container { width: 100%; max-width: 700px; }
         textarea { width: 100%; height: 350px; background: #1e1e1e; color: #fff; border: 1px solid #333; padding: 15px; border-radius: 6px; font-size: 15px; resize: vertical; }
         textarea:focus { outline: none; border-color: #007acc; }
-        button { background: #28a745; color: white; border: none; padding: 12px 20px; margin-top: 10px; cursor: pointer; border-radius: 4px; font-weight: bold; }
-        button:hover { background: #218838; }
+        .btn-group { margin-top: 15px; display: flex; gap: 10px; }
+        button { color: white; border: none; padding: 12px 24px; font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
+        .btn-save { background-color: #007acc; }
+        .btn-save:hover { background-color: #005999; }
+        .btn-copy { background-color: #28a745; }
+        .btn-copy:hover { background-color: #218838; }
         .status { margin-top: 10px; font-size: 13px; color: #888; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>⚡ Anlık Senkronize Pano</h2>
-    <p style="font-size: 13px; color: #aaa;">Buraya yazdığın her şey anında bulut üzerinden diğer bilgisayarına aktarılır.</p>
+    <h2>📋 Kesintisiz Bulut Pano</h2>
+    <p style="font-size: 13px; color: #aaa;">Metni yazıp kaydedin, diğer cihazlardan sayfayı açıp anında alın.</p>
     
-    <textarea id="panoAlan" placeholder="Bağlantı kuruluyor..."></textarea>
-    <br>
-    <button onclick="panoyaKopyala()">📋 Metni Kopyala</button>
+    <textarea id="panoAlan" placeholder="Buluttan veri getiriliyor, lütfen bekleyin..."></textarea>
     
-    <div class="status" id="durum">Bağlanıyor...</div>
+    <div class="btn-group">
+        <button class="btn-save" onclick="veriyiKaydet()">Değişiklikleri Kaydet</button>
+        <button class="btn-copy" onclick="panoyaKopyala()">Metni Kopyala</button>
+    </div>
+    
+    <div class="status" id="durum">Yükleniyor...</div>
 </div>
 
 <script>
-    // Ücretsiz ve halka açık GunDB sunucuları (Veriyi anlık taşımak için)
-    const gun = Gun([
-        'https://gun-manhattan.herokuapp.com/gun',
-        'https://rawcdn.githack.com/amark/gun/master/gun.js'
-    ]);
-
-    // Sadece senin bileceğin gizli bir oda adı. 
-    // Bunu istediğin gibi değiştirebilirsin (Örn: 'furkan_pano_99')
-    const ODA_ADI = 'furkan_ozel_pano_34'; 
-    const db = gun.get(ODA_ADI);
+    // Kendine özel, kimsenin tahmin edemeyeceği rastgele bir anahtar kelime yaz kral.
+    // Örn: 'furkan_banka_support_panosu_2026'
+    const OZEL_ANAHTAR = 'furkan_ozel_pano_key_99x'; 
+    
+    // Ücretsiz anonim key-value veri tabanı URL'si
+    const API_URL = `https://kvdb.io/MN86S7vSg6XgYg76wF929z/${OZEL_ANAHTAR}`;
 
     const panoAlan = document.getElementById('panoAlan');
     const durum = document.getElementById('durum');
 
-    // Buluttan veriyi anlık dinle ve textarea'ya bas
-    db.get('metin').on((data) => {
-        if (data !== undefined) {
-            // Eğer kullanıcı şu an aktif olarak yazmıyorsa içeriği güncelle
-            if (document.activeElement !== panoAlan) {
-                panoAlan.value = data;
+    // Sayfa açıldığında buluttaki veriyi çek
+    async function veriyiCek() {
+        durum.innerText = "Buluttan veri çekiliyor...";
+        try {
+            const response = await fetch(API_URL);
+            if (response.ok) {
+                const text = await response.text();
+                panoAlan.value = text;
+                durum.innerText = "✓ Veri başarıyla yüklendi.";
+                durum.style.color = "#28a745";
+            } else if (response.status === 404) {
+                panoAlan.value = "";
+                durum.innerText = "Pano şu an boş, ilk verinizi yazabilirsiniz.";
             }
+        } catch (error) {
+            durum.innerText = "Hata: Veri çekilemedi! İnternet bağlantınızı kontrol edin.";
+            durum.style.color = "#dc3545";
         }
-        durum.innerText = "✓ Bağlantı aktif. Değişiklikler anlık eşitlenir.";
-        durum.style.color = "#28a745";
-    });
+    }
 
-    // Kullanıcı klavyeden her tuşa bastığında buluttaki veriyi anında güncelle
-    panoAlan.addEventListener('input', () => {
-        db.get('metin').put(panoAlan.value);
-    });
+    // Butona basıldığında veriyi buluta kesin olarak kaydet
+    async function veriyiKaydet() {
+        durum.innerText = "Kaydediliyor...";
+        durum.style.color = "#888";
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                body: panoAlan.value
+            });
+            if (response.ok) {
+                durum.innerText = "✓ Başarıyla buluta kaydedildi! Diğer cihazlardan alabilirsiniz.";
+                durum.style.color = "#28a745";
+            } else {
+                throw new Error("Kayıt başarısız");
+            }
+        } catch (error) {
+            durum.innerText = "Hata: Kaydedilemedi!";
+            durum.style.color = "#dc3545";
+        }
+    }
 
     function panoyaKopyala() {
         panoAlan.select();
         document.execCommand('copy');
+        const eskiYazi = durum.innerText;
         durum.innerText = "✓ Kopyalandı!";
-        setTimeout(() => { durum.innerText = "✓ Bağlantı aktif. Değişiklikler anlık eşitlenir."; }, 2000);
+        setTimeout(() => { durum.innerText = eskiYazi; }, 2000);
     }
+
+    // Sayfa yüklenince otomatik çalıştır
+    veriyiCek();
 </script>
 
 </body>
