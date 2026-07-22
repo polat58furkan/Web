@@ -37,9 +37,9 @@
 
 <div class="container">
     <h2>📋 LéGéND Pano (Gist Senkronize)</h2>
-    <p style="font-size: 13px; color: #aaa;">Veriler kısıtlı yetkili Gist üzerinde AES-256 ile şifreli saklanır.</p>
+    <p style="font-size: 13px; color: #aaa;">Veriler kısıtlı yetkili G ile şifreli saklanır.</p>
     
-    <textarea id="panoAlan" placeholder="Gist verisi çekiliyor..."></textarea>
+    <textarea id="panoAlan" placeholder="Veri çekiliyor..."></textarea>
 
     <div class="pass-group">
         <input type="password" id="sifreKutusu" class="pass-input" placeholder="Parolanızı girin..." />
@@ -49,7 +49,7 @@
     <div class="btn-group">
         <button class="btn-save" onclick="veriyiKaydet()">Şifrele ve Gist'e Kaydet</button>
         <button class="btn-copy" onclick="panoyaKopyala()">Metni Kopyala</button>
-        <button class="btn-delete" onclick="veriyiSil()">Gist'i Temizle</button>
+        <button class="btn-delete" onclick="veriyiSil()">Veri'yi Temizle</button>
     </div>
     
     <div class="status" id="durum">✓ Bağlanıyor...</div>
@@ -57,7 +57,7 @@
 
 <script>
     // --- BİLGİLERİNİ BURAYA GİR ---
-    const GIST_ID = "BURAYA_GIST_ID_YAZ"; 
+    const GIST_ID = "7628b69be9207b626e1a91de45d0d688"; 
     const part1 = "ghp_2djn7J8e5QCWSc9aX";
     const part2 = "718W5vzISU87Z33vaxT";
     const TOKEN = part1 + part2;
