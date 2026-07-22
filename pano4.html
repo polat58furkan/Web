@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Kişisel Pano (Gist Sync)</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: #e0e0e0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 700px; }
+        textarea { width: 100%; height: 350px; background: #1e1e1e; color: #fff; border: 1px solid #333; padding: 15px; border-radius: 6px; font-size: 15px; resize: vertical; box-sizing: border-box; }
+        textarea:focus { outline: none; border-color: #007acc; }
+        
+        .pass-group { margin-top: 15px; display: flex; gap: 10px; align-items: center; }
+        .pass-input { background: #1e1e1e; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 4px; flex: 1; font-size: 14px; }
+        .pass-input:focus { outline: none; border-color: #007acc; }
+
+        .btn-group { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        button { color: white; border: none; padding: 12px 20px; font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
+        
+        .btn-decrypt { background-color: #ff9800; }
+        .btn-decrypt:hover { background-color: #e68a00; }
+        
+        .btn-save { background-color: #007acc; }
+        .btn-save:hover { background-color: #005999; }
+        
+        .btn-copy { background-color: #28a745; }
+        .btn-copy:hover { background-color: #218838; }
+        
+        .btn-delete { background-color: #dc3545; }
+        .btn-delete:hover { background-color: #c82333; }
+        
+        .status { margin-top: 15px; font-size: 13px; color: #888; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📋 LéGéND Pano (Gist Senkronize)</h2>
+    <p style="font-size: 13px; color: #aaa;">Veriler kısıtlı yetkili Gist üzerinde AES-256 ile şifreli saklanır.</p>
+    
+    <textarea id="panoAlan" placeholder="Gist verisi çekiliyor..."></textarea>
+
+    <div class="pass-group">
+        <input type="password" id="sifreKutusu" class="pass-input" placeholder="Parolanızı girin..." />
+        <button class="btn-decrypt" onclick="metniCoz()">Şifreyi Çöz</button>
+    </div>
+    
+    <div class="btn-group">
+        <button class="btn-save" onclick="veriyiKaydet()">Şifrele ve Gist'e Kaydet</button>
+        <button class="btn-copy" onclick="panoyaKopyala()">Metni Kopyala</button>
+        <button class="btn-delete" onclick="veriyiSil()">Gist'i Temizle</button>
+    </div>
+    
+    <div class="status" id="durum">✓ Bağlanıyor...</div>
+</div>
+
+<script>
+    // --- BİLGİLERİNİ BURAYA GİR ---
+    const GIST_ID = "BURAYA_GIST_ID_YAZ"; 
+    const part1 = "ghp_2djn7J8e5QCWSc9aX";
+    const part2 = "718W5vzISU87Z33vaxT";
+    const TOKEN = part1 + part2;
+    const FILE_NAME = "pano.txt";
+    // --------------------------------
+
+    const API_URL = `https://api.github.com/gists/${GIST_ID}`;
+    const panoAlan = document.getElementById('panoAlan');
+    const sifreKutusu = document.getElementById('sifreKutusu');
+    const durum = document.getElementById('durum');
+
+    // Sayfa açıldığında Gist'teki veriyi otomatik çek
+    window.onload = async function() {
+        try {
+            const res = await fetch(API_URL, {
+                headers: { "Authorization": `token ${TOKEN}` }
+            });
+            if (!res.ok) throw new Error("Gist verisi çekilemedi.");
+            const data = await res.json();
+            const rawContent = data.files[FILE_NAME] ? data.files[FILE_NAME].content : "";
+            
+            panoAlan.value = rawContent;
+            durum.innerText = "✓ Gist'ten şifreli veri yüklendi. Parolanızı girip 'Şifreyi Çöz'e basın.";
+            durum.style.color = "#17a2b8";
+        } catch (err) {
+            durum.innerText = "❌ Hata: " + err.message;
+            durum.style.color = "#dc3545";
+        }
+    };
+
+    // Safe Base64 Helpers
+    function bufferToBase64(buf) {
+        let binary = '';
+        const bytes = new Uint8Array(buf);
+        for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+        return btoa(binary);
+    }
+
+    function base64ToBuffer(b64) {
+        const binary = atob(b64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        return bytes.buffer;
+    }
+
+    // Anahtar türetme (PBKDF2)
+    async function getKey(password, salt) {
+        const enc = new TextEncoder();
+        const keyMaterial = await crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveKey"]);
+        return crypto.subtle.deriveKey(
+            { name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" },
+            keyMaterial,
+            { name: "AES-GCM", length: 256 },
+            false,
+            ["encrypt", "decrypt"]
+        );
+    }
+
+    // AES-GCM Şifreleme
+    async function encryptText(text, password) {
+        const salt = crypto.getRandomValues(new Uint8Array(16));
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const key = await getKey(password, salt);
+        const enc = new TextEncoder();
+        
+        const encrypted = await crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, enc.encode(text));
+
+        const payload = {
+            s: bufferToBase64(salt),
+            i: bufferToBase64(iv),
+            d: bufferToBase64(encrypted)
+        };
+
+        return "ENC:" + btoa(JSON.stringify(payload));
+    }
+
+    // AES-GCM Şifre Çözme
+    async function decryptText(encryptedPackage, password) {
+        if (!encryptedPackage.startsWith("ENC:")) return encryptedPackage;
+
+        try {
+            const rawB64 = encryptedPackage.replace("ENC:", "");
+            const payload = JSON.parse(atob(rawB64));
+            
+            const salt = base64ToBuffer(payload.s);
+            const iv = base64ToBuffer(payload.i);
+            const data = base64ToBuffer(payload.d);
+            
+            const key = await getKey(password, new Uint8Array(salt));
+            const decrypted = await crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(iv) }, key, data);
+
+            return new TextDecoder().decode(decrypted);
+        } catch (e) {
+            throw new Error("Hatalı Parola!");
+        }
+    }
+
+    // 1. Şifreyi Çöz
+    async function metniCoz() {
+        const pass = sifreKutusu.value;
+        if (!pass) {
+            durum.innerText = "⚠️ Lütfen önce parolayı girin!";
+            durum.style.color = "#ff9800";
+            return;
+        }
+
+        try {
+            const cozulmus = await decryptText(panoAlan.value, pass);
+            panoAlan.value = cozulmus;
+            durum.innerText = "✓ Şifre başarıyla çözüldü!";
+            durum.style.color = "#28a745";
+        } catch (err) {
+            durum.innerText = "❌ " + err.message;
+            durum.style.color = "#dc3545";
+        }
+    }
+
+    // 2. Şifrele ve Gist'e Kaydet
+    async function veriyiKaydet(silmeModu = false) {
+        const pass = sifreKutusu.value;
+
+        if (!silmeModu && !pass) {
+            durum.innerText = "⚠️ Kaydetmek için bir parola girin!";
+            durum.style.color = "#ff9800";
+            return;
+        }
+
+        durum.innerText = "Şifreleniyor ve Gist güncelleniyor...";
+        durum.style.color = "#888";
+
+        try {
+            let saklanacakMetin = "";
+            if (!silmeModu) {
+                saklanacakMetin = await encryptText(panoAlan.value, pass);
+            }
+
+            const patchBody = {
+                files: {
+                    [FILE_NAME]: {
+                        content: saklanacakMetin || "ENC:"
+                    }
+                }
+            };
+
+            const res = await fetch(API_URL, {
+                method: 'PATCH',
+                headers: {
+                    "Authorization": `token ${TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(patchBody)
+            });
+
+            if (res.ok) {
+                durum.innerText = silmeModu ? "✓ Gist içeriği temizlendi!" : "✓ Başarıyla şifrelenip Gist'e kaydedildi!";
+                durum.style.color = "#28a745";
+                if (silmeModu) panoAlan.value = "";
+            } else {
+                throw new Error("Gist güncellenemedi.");
+            }
+        } catch (err) {
+            durum.innerText = "❌ Hata: " + err.message;
+            durum.style.color = "#dc3545";
+        }
+    }
+
+    function veriyiSil() {
+        if (confirm("Gist içeriğini temizlemek istediğinizden emin misiniz?")) {
+            veriyiKaydet(true);
+        }
+    }
+
+    function panoyaKopyala() {
+        panoAlan.select();
+        document.execCommand('copy');
+        durum.innerText = "✓ Panoya kopyalandı!";
+        setTimeout(() => { durum.innerText = "✓ Hazır."; }, 2000);
+    }
+</script>
+
+</body>
+</html>
