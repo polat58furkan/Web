@@ -28,7 +28,31 @@
     <p style="font-size: 13px; color: #aaa;">Yabancı bulut yok, ekstra API isteği yok. Veri doğrudan sayfa kaynağında taşınır.</p>
     
     <!-- VERİ DEPOSU BAŞLANGICI -->
-    <textarea id="panoAlan" placeholder="Buraya yazın..."></textarea>
+    <textarea id="panoAlan" placeholder="Buraya yazın...">SELECT
+    X.JOB_NAME,
+    SUM(X.CPU_TIME) AS TOTAL_CPU
+FROM (
+    SELECT
+        JB.JOB_NAME,
+        JB.CPU_TIME,
+        CASE
+            WHEN (JB.JOB_NAME LIKE 'CICS%' OR JB.JOB_NAME LIKE '%CICS' OR JB.JOB_NAME LIKE 'CMAS%') THEN 'CICS'
+            WHEN (JB.JOB_NAME LIKE '%PDIST') THEN 'DB2 DDF'
+            WHEN (JB.JOB_NAME LIKE '%PMSTR' OR JB.JOB_NAME LIKE '%PDBM1' OR JB.JOB_NAME LIKE '%PIRLM' OR JB.JOB_NAME LIKE 'DB0P%') THEN 'DB2 ADR'
+            WHEN JB.JOB_NAME LIKE 'MQ%' THEN 'MQ'
+            WHEN JB.JOB_NAME LIKE 'CTG%' THEN 'CTG'
+            WHEN JB.JOB_NUMBER LIKE 'J%' THEN 'BATCH'
+            WHEN JB.JOB_NAME LIKE 'INF%' THEN 'INFORMATICA'
+            WHEN (JB.JOB_NAME LIKE 'O5%' AND JB.JOB_TYPE LIKE '4') THEN 'OMEGAMON'
+            ELSE 'OTHER_STC'
+        END AS WORKLOAD_TYPE
+    FROM PMON04.dbo.JOBBucket JB WITH (NOLOCK)
+    WHERE $__timeFilter(JB.TIMESLICE)
+      AND JB.LPAR IN ($LPAR)
+) X
+WHERE X.WORKLOAD_TYPE = 'OTHER_STC'
+GROUP BY X.JOB_NAME
+ORDER BY TOTAL_CPU DESC;</textarea>
     <!-- VERİ DEPOSU BİTİŞİ -->
     
     <div class="btn-group">
