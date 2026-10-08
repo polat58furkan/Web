@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LéGéND — Sesli Sohbet</title>
+  <title>LéGéND — Gelişmiş Sesli Sohbet</title>
   <!-- PeerJS SDK -->
   <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
   <!-- FontAwesome İkonları -->
@@ -39,7 +39,7 @@
     .container {
       background-color: var(--card-bg);
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
       padding: 30px;
       border-radius: 16px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
@@ -162,21 +162,56 @@
       padding: 15px;
       margin: 20px 0;
       text-align: left;
-      max-height: 180px;
+      max-height: 240px;
       overflow-y: auto;
     }
 
     .user-item {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
-      padding: 8px 0;
+      padding: 10px 0;
       border-bottom: 1px solid rgba(255,255,255,0.05);
       font-size: 0.9rem;
     }
 
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
     .user-item:last-child {
       border-bottom: none;
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .volume-control input[type="range"] {
+      width: 70px;
+      accent-color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    .speaking-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #2f3542;
+      transition: background-color 0.2s, box-shadow 0.2s;
+    }
+
+    .speaking-indicator.active {
+      background-color: var(--accent-color);
+      box-shadow: 0 0 8px var(--accent-color);
     }
 
     .controls {
@@ -197,7 +232,7 @@
 
   <div class="container">
     <div class="logo">LéGéND</div>
-    <div class="subtitle">Güvenli P2P Sesli Sohbet Odası</div>
+    <div class="subtitle">Sesli Sohbet & Ses Kontrolü</div>
 
     <!-- GİRİŞ EKRANI -->
     <div id="login-panel">
@@ -223,7 +258,7 @@
       </div>
 
       <div class="user-list">
-        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">ODADAKİ BAĞLANTILAR</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">ODADAKİLER VE SES AYARLARI</div>
         <div id="users-container"></div>
       </div>
 
@@ -235,6 +270,7 @@
           <i class="fa-solid fa-phone-slash"></i> Ayrıl
         </button>
       </div>
+      
       <button class="btn btn-secondary" id="test-audio-btn" style="margin-top: 10px; font-size: 0.85rem;">
         <i class="fa-solid fa-volume-high"></i> Kendi Sesini Test Et (Kapalı)
       </button>
@@ -249,6 +285,7 @@
     let isMuted = false;
     let isTestLoopActive = false;
     let localAudioTestEl = null;
+    let audioContext = null;
 
     const loginPanel = document.getElementById('login-panel');
     const roomPanel = document.getElementById('room-panel');
@@ -278,19 +315,26 @@
       }
 
       try {
-        // Mikrofon İzni Al
-        localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        // Otomatik ses kazancını (Auto Gain) ve yankı engellemeyi (Echo Cancellation) aktif alıyoruz
+        localStream = await navigator.mediaDevices.getUserMedia({ 
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true
+          }, 
+          video: false 
+        });
+        
+        // Web Audio Context Başlat
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
       } catch (err) {
         showError('Mikrofon erişimi reddedildi veya cihaz bulunamadı!');
         return;
       }
 
-      // Benzersiz Peer ID
       const myPeerId = `legend-${roomId}-${username}-${Math.floor(Math.random() * 1000)}`;
       
-      peer = new Peer(myPeerId, {
-        debug: 1
-      });
+      peer = new Peer(myPeerId, { debug: 1 });
 
       peer.on('open', (id) => {
         loginPanel.style.display = 'none';
@@ -298,13 +342,9 @@
         document.getElementById('room-display-name').innerText = `Oda: ${roomId}`;
         
         addUserToList(username, true, id);
-        
-        // Odaya katılan diğer kullanıcıları aramak için broadcast duyurusu simülasyonu
-        // Basit tarama mekanizması
-        connectToRoomPeers(roomId, myPeerId);
+        setupAudioVisualizer(localStream, id);
       });
 
-      // Gelen Aramaları Dinle ve Otomatik Yanıtla
       peer.on('call', (call) => {
         call.answer(localStream);
         
@@ -312,6 +352,7 @@
           const rawName = call.peer.split('-')[2] || 'Katılımcı';
           addAudioElement(call.peer, remoteStream);
           addUserToList(rawName, false, call.peer);
+          setupAudioVisualizer(remoteStream, call.peer);
         });
 
         call.on('close', () => {
@@ -324,7 +365,7 @@
       });
     });
 
-    // Ses İletimini Başlatma (Diğer Kullanıcıyı Arama)
+    // Ses İletimini Başlatma
     function connectToPeer(remotePeerId) {
       if (!peer || !localStream) return;
       const call = peer.call(remotePeerId, localStream);
@@ -334,6 +375,7 @@
         const rawName = remotePeerId.split('-')[2] || 'Katılımcı';
         addAudioElement(remotePeerId, remoteStream);
         addUserToList(rawName, false, remotePeerId);
+        setupAudioVisualizer(remoteStream, remotePeerId);
       });
 
       call.on('close', () => {
@@ -341,9 +383,47 @@
       });
     }
 
-    // Basit Oda Taraması (Sinyalleşme)
-    function connectToRoomPeers(roomId, myId) {
-      // Bağlantıyı sağlamak için arka planda periyodik arama veya mesajlaşma desteği eklenir
+    // Kullanıcıya Özel Ses Seviyesi (Volume Control)
+    function changeVolume(peerId, val) {
+      const audioEl = document.getElementById(`audio-${peerId}`);
+      if (audioEl) {
+        audioEl.volume = parseFloat(val);
+      }
+    }
+
+    // Konuşuyor Göstergesi (Visualizer)
+    function setupAudioVisualizer(stream, peerId) {
+      if (!audioContext) return;
+      try {
+        const source = audioContext.createMediaStreamSource(stream);
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 64;
+        source.connect(analyser);
+
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+        function checkSpeaking() {
+          analyser.getByteFrequencyData(dataArray);
+          let sum = 0;
+          for (let i = 0; i < dataArray.length; i++) {
+            sum += dataArray[i];
+          }
+          const average = sum / dataArray.length;
+
+          const indicator = document.getElementById(`indicator-${peerId}`);
+          if (indicator) {
+            if (average > 15) { // Konuşma eşiği
+              indicator.classList.add('active');
+            } else {
+              indicator.classList.remove('active');
+            }
+          }
+          requestAnimationFrame(checkSpeaking);
+        }
+        checkSpeaking();
+      } catch (e) {
+        console.log("Visualizer başlatılamadı:", e);
+      }
     }
 
     // Sesi Aç / Kapat
@@ -370,9 +450,9 @@
         localAudioTestEl = document.createElement('audio');
         localAudioTestEl.srcObject = localStream;
         localAudioTestEl.autoplay = true;
-        localAudioTestEl.volume = 0.5;
+        localAudioTestEl.volume = 1.0;
         audioContainer.appendChild(localAudioTestEl);
-        testAudioBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Kendi Sesini Test Et (AÇIK)';
+        testAudioBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Test Ediliyor (AÇIK)';
         testAudioBtn.style.backgroundColor = 'var(--accent-color)';
         testAudioBtn.style.color = '#000';
       } else {
@@ -394,9 +474,19 @@
       const div = document.createElement('div');
       div.className = 'user-item';
       div.id = `user-${peerId}`;
+      
       div.innerHTML = `
-        <i class="fa-solid fa-circle-user" style="color: var(--accent-color);"></i>
-        <span>${name} ${isMe ? '(Sen)' : ''}</span>
+        <div class="user-info">
+          <div class="speaking-indicator" id="indicator-${peerId}"></div>
+          <i class="fa-solid fa-circle-user" style="color: var(--accent-color);"></i>
+          <span>${name} ${isMe ? '(Sen)' : ''}</span>
+        </div>
+        ${!isMe ? `
+          <div class="volume-control">
+            <i class="fa-solid fa-volume-low"></i>
+            <input type="range" min="0" max="1" step="0.05" value="1" oninput="changeVolume('${peerId}', this.value)">
+          </div>
+        ` : ''}
       `;
       usersContainer.appendChild(div);
     }
